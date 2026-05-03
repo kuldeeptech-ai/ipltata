@@ -1,363 +1,111 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-  
-<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-  
-  <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-  
-  <script type="text/javascript">
 
-    aclib.runPop({
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>Live Stream</title>
+
+<script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+}
+
+/* ✅ FULL PAGE CENTER */
+#main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ✅ 16:9 RESPONSIVE BOX */
+#player-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+/* Maintain 16:9 */
+#player-box::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+}
+
+/* Player fill inside ratio */
+#player-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
-        zoneId: '10714210',
-
-    });
-
-</script>
-  
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="referrer" content="no-referrer">
-
-    <title>Live Cricket Stream</title>
-
-    
-
-    <script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script>
-
-    <style>
-
-        /* Basic page and player styling */
-
-        body, html {
-
-            margin: 0;
-
-            padding: 0;
-
-            height: 100vh; /* Use vh for full viewport height */
-
-            width: 100vw;
-
-            overflow: hidden;
-
-            background: #000;
-
-            /* NEW: Use Flexbox to layout ads and player */
-
-            display: flex;
-
-            flex-direction: column;
-
-        }
-
-        /* NEW: Container for ads */
-
-        .ad-container {
-
-            text-align: center;
-
-            padding: 5px 0;
-
-            flex-shrink: 0; /* Prevents ads from shrinking */
-
-        }
-
-        #player-container {
-
-            flex-grow: 1; /* Allows player to fill available space */
-
-            position: relative;
-
-            min-height: 0; /* Prevents player from overflowing */
-
-        }
-
-        
-
-        /* Your Popup Styles */
-
-        .popup {
-
-            position: fixed;
-
-            top: 0; left: 0; right: 0; bottom: 0;
-
-            width: 100vw;
-
-            height: 100vh;
-
-            background: rgba(10, 25, 47, 0.95);
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            z-index: 9999;
-
-        }
-
-        .popup.hide {
-
-            display: none;
-
-        }
-
-        .popup-content {
-
-            background: #112d4e;
-
-            border-radius: 20px;
-
-            padding: 40px 35px;
-
-            max-width: 420px;
-
-            width: 90vw;
-
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-
-            text-align: center;
-
-            color: #e1e8f0;
-
-            font-weight: 600;
-
-        }
-
-        .popup-content h2 {
-
-            margin-top: 0;
-
-            font-size: 2rem;
-
-            color: #ffd700;
-
-            margin-bottom: 18px;
-
-            letter-spacing: 1px;
-
-            line-height: 1.3;
-
-        }
-
-        .popup-content p {
-
-            font-size: 1.1rem;
-
-            margin-bottom: 30px;
-
-        }
 #player {
     width: 100% !important;
     height: 100% !important;
 }
-        .btn-telegram {
-
-            display: inline-block;
-
-            background-color: #fff;
-
-            color: #007bff;
-
-            font-weight: 700;
-
-            font-size: 1.4rem;
-
-            padding: 18px 20px;
-
-            border-radius: 12px;
-
-            text-decoration: none;
-
-            cursor: pointer;
-
-            border: 3px solid #007bff;
-
-            width: 100%;
-
-            max-width: 320px;
-
-            margin: 0 auto 25px;
-
-        }
-
-        .btn-joined {
-
-            background-color: transparent;
-
-            color: #a8c0ff;
-
-            font-size: 1.1rem;
-
-            padding: 12px 24px;
-
-            border-radius: 10px;
-
-            border: 2px solid #a8c0ff;
-
-            cursor: pointer;
-
-            font-weight: 600;
-
-        }
-
-        #message {
-
-            position: fixed;
-
-            top: 0; left: 0; width: 100%; height: 100%;
-
-            background-color: rgba(0, 0, 0, 0.9);
-
-            color: #fff;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 24px;
-
-            z-index: 1001;
-
-        }
-
-    </style>
+</style>
 
 </head>
 
 <body>
 
+<div id="main">
+    <div id="player-box">
+        <div id="player-container">
+            <div id="player"></div>
+        </div>
     </div>
+</div>
 
-    <div id="player-container">
+<script>
 
-        <div id="player"></div>
+jwplayer.key = 'YOUR_JW_PLAYER_KEY';
 
-    </div>
-
-    <script>
-
-        // Function to close the popup
-
-        function closePopup() {
-
-            document.getElementById("popup").classList.add("hide");
-
+(function() {
+    const origOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function(method, url) {
+        if (url && !url.includes("__hdnea__")) {
+            url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1777809136~exp=1777830736~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=3ebdf9eeb21dd1585c5a9039cddc0712e4675a8f2459bdc8e48147a66c963aee";
         }
+        return origOpen.apply(this, arguments);
+    };
+})();
 
-        // Prevent the page from being loaded inside an iframe
-            });
-
+jwplayer("player").setup({
+    playlist: [{
+        file: "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1777809136~exp=1777830736~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=3ebdf9eeb21dd1585c5a9039cddc0712e4675a8f2459bdc8e48147a66c963aee",
+        drm: {
+            clearkey: {
+                keyId: "400131994b445d8c8817202248760fda",
+                key: "2d56cb6f07a75b9aff165d534ae2bfc4"
+            }
         }
+    }],
+    width: "100%",
+    height: "100%",
+    aspectratio: "16:9",
+    stretching: "uniform", /* ✅ maintain ratio */
+    autostart: true,
+    controls: true,
+    fullscreen: true
+});
 
-        // --- JW PLAYER SETUP SCRIPT ---
-
-        fullscreen: true,
-
-        jwplayer.key = 'YOUR_JW_PLAYER_KEY'; // IMPORTANT: Replace with your actual key
-
-        (function() {
-
-            const origOpen = XMLHttpRequest.prototype.open;
-
-            XMLHttpRequest.prototype.open = function(method, url) {
-
-                if (url && !url.includes("__hdnea__")) {
-
-                    url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1777809136~exp=1777830736~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=3ebdf9eeb21dd1585c5a9039cddc0712e4675a8f2459bdc8e48147a66c963aee";
-
-                }
-
-                return origOpen.apply(this, arguments);
-
-            };
-
-        })();
-
-        jwplayer("player").setup({
-
-            playlist: [{
-
-                file: "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1777809136~exp=1777830736~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=3ebdf9eeb21dd1585c5a9039cddc0712e4675a8f2459bdc8e48147a66c963aee",
-
-                drm: {
-
-                    clearkey: {
-
-                        keyId: "400131994b445d8c8817202248760fda",
-
-                        key: "2d56cb6f07a75b9aff165d534ae2bfc4"
-
-                    }
-
-                }
-
-            }],
-
-            width: "100%",
-
-            height: "100%",
-
-            autostart: true,
-
-            mute: false,
-
-            primary: "html5",
-
-            hlshtml: true,
-
-            aspectratio: "16:9",
-
-            stretching: "exactfit",
-
-            playbackRateControls: true,
-
-            controls: true,
-
-            skin: { 
-
-                name: "default", 
-
-                active: "red", 
-
-                inactive: "white", 
-
-                background: "black" 
-
-            },
-
-        }).on("error", e => {
-
-            console.error("Player Error:", e);
-
-            const playerContainer = document.getElementById('player-container');
-
-            playerContainer.innerHTML = `<div id="message">Error: Could not load the stream. (Code: ${e.code})</div>`;
-
-        });
-
-    </script>
-
-    
+</script>
 
 </body>
-
 </html>
-
-<div>
-    <script type="text/javascript">
-        aclib.runBanner({
-            zoneId: '11188142',
-        });
-    </script>
-</div>
