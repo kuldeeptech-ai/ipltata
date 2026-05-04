@@ -20,7 +20,7 @@ html, body {
     overflow: hidden;
 }
 
-/* ✅ FULL PAGE CENTER */
+/* FULL PAGE CENTER */
 #main {
     width: 100%;
     height: 100%;
@@ -29,7 +29,7 @@ html, body {
     align-items: center;
 }
 
-/* ✅ 16:9 RESPONSIVE BOX */
+/* 16:9 BOX */
 #player-box {
     position: relative;
     width: 100%;
@@ -45,7 +45,6 @@ html, body {
     padding-top: 56.25%;
 }
 
-/* Player fill inside ratio */
 #player-container {
     position: absolute;
     top: 0;
@@ -80,7 +79,7 @@ jwplayer.key = 'YOUR_JW_PLAYER_KEY';
     const origOpen = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function(method, url) {
         if (url && !url.includes("__hdnea__")) {
-            url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1777809136~exp=1777830736~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=3ebdf9eeb21dd1585c5a9039cddc0712e4675a8f2459bdc8e48147a66c963aee";
+            url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1777895129~exp=1777916729~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=7d030ca1fafff931a36ea83e72380fe963bc2a3fc9e1fb92d9afe29249b03ae3";
         }
         return origOpen.apply(this, arguments);
     };
@@ -88,7 +87,7 @@ jwplayer.key = 'YOUR_JW_PLAYER_KEY';
 
 jwplayer("player").setup({
     playlist: [{
-        file: "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1777809136~exp=1777830736~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=3ebdf9eeb21dd1585c5a9039cddc0712e4675a8f2459bdc8e48147a66c963aee",
+        file: "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1777895129~exp=1777916729~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=7d030ca1fafff931a36ea83e72380fe963bc2a3fc9e1fb92d9afe29249b03ae3",
         drm: {
             clearkey: {
                 keyId: "400131994b445d8c8817202248760fda",
@@ -99,10 +98,12 @@ jwplayer("player").setup({
     width: "100%",
     height: "100%",
     aspectratio: "16:9",
-    stretching: "uniform", /* ✅ maintain ratio */
+    stretching: "uniform",
     autostart: true,
     controls: true,
     fullscreen: true
+}).on("error", e => {
+    document.body.innerHTML = `<div style="color:white;display:flex;justify-content:center;align-items:center;height:100vh;">Stream Error (${e.code})</div>`;
 });
 
 </script>
