@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+
+<title>Live Stream</title>
+
+<script src="//content.jwplatform.com/libraries/SAHhwvZq.js"></script>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+}
+
+/* FULL PAGE CENTER */
+#main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 16:9 BOX */
+#player-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+/* Maintain 16:9 */
+#player-box::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+}
+
+#player-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#player {
+    width: 100% !important;
+    height: 100% !important;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="main">
+    <div id="player-box">
+        <div id="player-container">
+            <div id="player"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+        
+
+        
+                jwplayer.key = 'YOUR_JW_PLAYER_KEY'; // IMPORTANT: Replace with your actual key
+
+        (function() {
+
+            const origOpen = XMLHttpRequest.prototype.open;
+
+            XMLHttpRequest.prototype.open = function(method, url) {
+
+                if (url && !url.includes("__hdnea__")) {
+
+                    url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1778394635~exp=1778416235~acl=/bpk-tv/Star_Sports2_Tamil_HD_BTS/WDVLive/*~hmac=09e47a4cdcbb290e8820e26006efa10a5ab7149aaa351a6a443818fd726bf807";
+
+                }
+
+                return origOpen.apply(this, arguments);
+
+            };
+
+        })();
+
+        jwplayer("player").setup({
+
+            playlist: [{
+
+                file: "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports2_Tamil_HD_BTS/WDVLive/index.mpd?__hdnea__=st=1778394635~exp=1778416235~acl=/bpk-tv/Star_Sports2_Tamil_HD_BTS/WDVLive/*~hmac=09e47a4cdcbb290e8820e26006efa10a5ab7149aaa351a6a443818fd726bf807",
+
+                drm: {
+
+                    clearkey: {
+
+                        keyId: "dc44fe6251825774b90d58dcfa7d94e0",
+
+                        key: "63e3ae853f483a86752b5b9e6d61eb20"
+
+                    }
+
+                }
+
+            }],
+    width: "100%",
+    height: "100%",
+    aspectratio: "16:9",
+    stretching: "uniform",
+    autostart: true,
+    controls: true,
+    fullscreen: true
+}).on("error", e => {
+    document.body.innerHTML = `<div style="color:white;display:flex;justify-content:center;align-items:center;height:100vh;">Stream Error (${e.code})</div>`;
+});
+
+</script>
+
+</body>
+</html>
