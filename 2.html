@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CRICHYPE LIVE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#030712;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* ================= BACKGROUND ================= */
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    z-index:-2;
+
+    background:
+    radial-gradient(circle at top,#18386d 0%,transparent 35%),
+    radial-gradient(circle at bottom,#001534 0%,transparent 35%),
+    #030712;
+}
+
+body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    z-index:-1;
+
+    background:url("https://www.transparenttextures.com/patterns/dark-mosaic.png");
+    opacity:.05;
+}
+
+/* ================= HEADER ================= */
+
+.topbar{
+    width:100%;
+    padding:12px 15px;
+    background:#081221;
+    border-bottom:1px solid rgba(255,255,255,.07);
+
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+.logo-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.logo{
+    font-size:clamp(26px,4vw,42px);
+    font-weight:800;
+    color:#ffc400;
+}
+
+.live-badge{
+    background:#ff2d55;
+    padding:6px 14px;
+    border-radius:999px;
+
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    font-size:13px;
+    font-weight:700;
+
+    box-shadow:0 0 15px rgba(255,45,85,.4);
+}
+
+.dot{
+    width:8px;
+    height:8px;
+    background:#fff;
+    border-radius:50%;
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.5);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+/* ================= MARQUEE ================= */
+
+.marquee{
+    overflow:hidden;
+    white-space:nowrap;
+
+    background:#0d1624;
+
+    border-top:1px solid rgba(255,255,255,.05);
+    border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.marquee span{
+    display:inline-block;
+    padding:10px 0;
+
+    color:#ffd54f;
+    font-weight:600;
+
+    animation:marquee 15s linear infinite;
+}
+
+@keyframes marquee{
+
+    0%{
+        transform:translateX(100%);
+    }
+
+    100%{
+        transform:translateX(-100%);
+    }
+
+}
+
+/* ================= PLAYER ================= */
+
+.player-wrapper{
+    width:100%;
+    position:relative;
+    background:#000;
+}
+
+#videoFrame{
+    width:100%;
+    height:56.25vw;
+
+    min-height:220px;
+    max-height:80vh;
+
+    border:none;
+    display:block;
+    background:#000;
+}
+
+/* ================= CHANNEL NAME ================= */
+
+.channel-overlay{
+    position:absolute;
+    top:12px;
+    left:12px;
+
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(10px);
+
+    padding:8px 14px;
+
+    border-radius:12px;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    font-size:13px;
+    font-weight:700;
+
+    z-index:10;
+}
+
+.live-red{
+    width:8px;
+    height:8px;
+
+    background:#ff2d55;
+
+    border-radius:50%;
+
+    animation:pulse 1s infinite;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    width:100%;
+    max-width:1050px;
+    margin:auto;
+    padding:16px;
+}
+
+/* ================= TITLE ================= */
+
+.section-title{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    background:#1d1703;
+    color:#ffd75b;
+
+    border:1px solid rgba(255,215,91,.15);
+
+    padding:9px 15px;
+
+    border-radius:999px;
+
+    font-size:13px;
+    font-weight:700;
+
+    margin-bottom:18px;
+}
+
+/* ================= GRID ================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    gap:12px;
+}
+
+/* ================= CARD ================= */
+
+.card{
+    background:linear-gradient(180deg,#0c1526,#07101c);
+
+    border-radius:20px;
+
+    padding:18px 12px;
+
+    border:2px solid rgba(255,255,255,.05);
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.08),
+    transparent);
+
+    transform:translateX(-100%);
+}
+
+.card:hover::before{
+    transform:translateX(100%);
+    transition:1s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.card.active{
+    border-color:#ffc400;
+    box-shadow:0 0 20px rgba(255,196,0,.18);
+}
+
+.card h3{
+    font-size:16px;
+    line-height:1.4;
+    margin-bottom:5px;
+}
+
+.card p{
+    font-size:12px;
+    color:#b7c5d8;
+}
+
+/* ================= TELEGRAM BOX ================= */
+
+.telegram-box{
+    margin-top:22px;
+
+    background:linear-gradient(180deg,#041f4f,#02132d);
+
+    border-radius:24px;
+
+    border:2px solid rgba(0,140,255,.15);
+
+    padding:18px;
+
+    box-shadow:0 0 30px rgba(0,132,255,.12);
+}
+
+.telegram-top{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.telegram-icon{
+    width:55px;
+    height:55px;
+
+    border-radius:50%;
+
+    background:#0f7cff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:24px;
+
+    box-shadow:0 0 20px rgba(15,124,255,.35);
+}
+
+.telegram-content h2{
+    font-size:22px;
+    color:#46a5ff;
+}
+
+.telegram-content p{
+    margin-top:4px;
+    color:#d4dceb;
+    font-size:13px;
+}
+
+.join-btn{
+    width:100%;
+    margin-top:18px;
+
+    border:none;
+    outline:none;
+
+    padding:15px;
+
+    border-radius:999px;
+
+    background:linear-gradient(90deg,#0077ff,#11a6ff);
+
+    color:#fff;
+
+    font-size:16px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:0 0 25px rgba(0,132,255,.3);
+
+    transition:.3s;
+}
+
+.join-btn:hover{
+    transform:scale(1.02);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:700px){
+
+    .container{
+        padding:12px;
+    }
+
+    .grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .card{
+        padding:16px 10px;
+        border-radius:16px;
+    }
+
+    .card h3{
+        font-size:14px;
+    }
+
+    .telegram-content h2{
+        font-size:18px;
+    }
+
+    #videoFrame{
+        height:56vw;
+        min-height:210px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .logo{
+        font-size:24px;
+    }
+
+    .live-badge{
+        font-size:11px;
+        padding:5px 10px;
+    }
+
+    .telegram-box{
+        padding:15px;
+    }
+
+    .join-btn{
+        font-size:14px;
+        padding:13px;
+    }
+
+    .channel-overlay{
+        font-size:11px;
+        padding:6px 10px;
+    }
+
+    #videoFrame{
+        height:58vw;
+        min-height:190px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<div class="topbar">
+
+    <div class="logo-wrap">
+
+        <div class="logo">
+            CRICHYPE
+        </div>
+
+        <div class="live-badge">
+            <div class="dot"></div>
+            LIVE
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= MARQUEE ================= -->
+
+<div class="marquee">
+
+    <span>
+        ⚡ Join Our Telegram For Others Live Channels Links ⚡ Join Our Telegram For Others Live Channels Links ⚡
+    </span>
+
+</div>
+
+<!-- ================= VIDEO PLAYER ================= -->
+
+<div class="player-wrapper">
+
+    <!-- CHANNEL NAME -->
+
+    <div class="channel-overlay">
+
+        <div class="live-red"></div>
+
+        <span id="channelName">
+            Hindi IND only
+        </span>
+
+    </div>
+
+    <!-- IFRAME PLAYER -->
+
+    <iframe
+        id="videoFrame"
+        src="https://crickld2026.netlify.app/str1"
+        allow="
+        autoplay;
+        encrypted-media;
+        fullscreen;
+        picture-in-picture"
+        allowfullscreen
+        webkitallowfullscreen
+        mozallowfullscreen
+        scrolling="no"
+        referrerpolicy="no-referrer"
+        loading="eager">
+    </iframe>
+
+</div>
+
+<!-- ================= CONTENT ================= -->
+
+<div class="container">
+
+    <div class="section-title">
+        📺 LIVE CHANNELS
+    </div>
+
+    <div class="grid">
+
+        <div class="card active"
+        onclick="changeChannel(
+        this,
+        'Hindi IND only',
+        'https://crickld2026.netlify.app/str1'
+        )">
+
+            <h3>Hindi IND only</h3>
+            <p>High Quality</p>
+
+        </div>
+
+        <div class="card"
+        onclick="changeChannel(
+        this,
+        'English IND only',
+        'https://crickld2026.netlify.app/str1'
+        )">
+
+            <h3>English IND only</h3>
+            <p>High Quality</p>
+
+        </div>
+
+        <div class="card"
+        onclick="changeChannel(
+        this,
+        'Tamil IND only',
+        'https://crickld2026.netlify.app/str1'
+        )">
+
+            <h3>Tamil IND only</h3>
+            <p>High Quality</p>
+
+        </div>
+
+        <div class="card"
+        onclick="changeChannel(
+        this,
+        'Telugu IND only',
+        'https://crickld2026.netlify.app/str1'
+        )">
+
+            <h3>Telugu IND only</h3>
+            <p>High Quality</p>
+
+        </div>
+
+        <div class="card"
+        onclick="changeChannel(
+        this,
+        'Kannada IND only',
+        'https://crickld2026.netlify.app/str1'
+        )">
+
+            <h3>Kannada IND only</h3>
+            <p>Low Quality</p>
+
+        </div>
+
+    </div>
+
+    <!-- ================= TELEGRAM ================= -->
+
+    <div class="telegram-box">
+
+        <div class="telegram-top">
+
+            <div class="telegram-icon">
+                ✈
+            </div>
+
+            <div class="telegram-content">
+
+                <h2>SUPPORT & BACKUP LINKS</h2>
+
+                <p>
+                    Get More Live Channels Links
+                </p>
+
+            </div>
+
+        </div>
+
+        <button class="join-btn"
+        onclick="window.open('https://t.me/telegram','_blank')">
+
+            🔗 JOIN TELEGRAM NOW
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const videoFrame =
+document.getElementById("videoFrame");
+
+const channelName =
+document.getElementById("channelName");
+
+/* ================= CHANNEL CHANGE ================= */
+
+function changeChannel(card,name,url){
+
+    /* ACTIVE CARD */
+
+    document.querySelectorAll('.card')
+    .forEach(c=>{
+
+        c.classList.remove('active');
+
+    });
+
+    card.classList.add('active');
+
+    /* CHANGE NAME */
+
+    channelName.innerText = name;
+
+    /* CHANGE IFRAME URL */
+
+    videoFrame.src = url;
+
+}
+
+</script>
+
+</body>
+</html>
