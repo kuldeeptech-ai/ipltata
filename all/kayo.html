@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JW Player Live</title>
+
+<script src="https://content.jwplatform.com/libraries/SAHhwvZq.js"></script>
+
+<style>
+
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    background:#000;
+    overflow:hidden;
+}
+
+#player{
+    width:100% !important;
+    height:100% !important;
+}
+
+.jwplayer{
+    width:100% !important;
+    height:100% !important;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="player"></div>
+
+<script>
+
+// JW PLAYER KEY
+jwplayer.key = "YOUR_JWPLAYER_KEY";
+
+// PLAYER
+jwplayer("player").setup({
+
+    playlist: [{
+
+        title: "LIVE",
+
+        file: "https://dck1-ac-live.cdn.indazn.com/out/v1/814bffb9b389f652/6cae46a137544991a86d4bb65dc75c17/index.mpd",
+
+        drm: {
+
+            clearkey: {
+
+                keyId: "0eea833f3b0b54d88a082aba5eb4c4a5",
+
+                key: "b8d0d84f77739e345c0d7aa982faa189"
+
+            }
+
+        }
+
+    }],
+
+    width: "100%",
+    height: "100%",
+
+    aspectratio: "16:9",
+
+    stretching: "uniform",
+
+    autostart: true,
+
+    mute: false,
+
+    controls: true,
+
+    fullscreen: true,
+
+    primary: "html5"
+
+})
+
+.on("ready", function () {
+
+    console.log("STREAM STARTED");
+
+})
+
+.on("error", function (e) {
+
+    console.log(e);
+
+    document.body.innerHTML = `
+    <div style="
+        color:white;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:black;
+        font-family:sans-serif;
+    ">
+        Stream Error
+    </div>`;
+
+});
+
+</script>
+
+</body>
+</html>
