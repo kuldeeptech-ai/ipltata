@@ -588,29 +588,29 @@ const SECRET = "KLD_PRIVATE_2026";
 
 const channels = {
 
-    hindi : {
-        name : "Hindi IND only"
+    hindi:{
+        name:"Hindi IND only"
     },
 
-    english : {
-        name : "English IND only"
+    english:{
+        name:"English IND only"
     },
 
-    tamil : {
-        name : "Tamil IND only"
+    tamil:{
+        name:"Tamil IND only"
     },
 
-    telugu : {
-        name : "Telugu IND only"
+    telugu:{
+        name:"Telugu IND only"
     },
 
-    kayo : {
-        name : "Kayo Hindi IND only"
+    kayo:{
+        name:"Kayo Hindi IND only"
     }
 
 };
 
-const videoFrame =
+const frame =
 document.getElementById("videoFrame");
 
 const channelName =
@@ -618,37 +618,37 @@ document.getElementById("channelName");
 
 async function loadChannel(id){
 
-    if(!channels[id]){
-
-        id = "hindi";
-
-    }
-
-    const channel = channels[id];
-
-    channelName.innerText = channel.name;
-
-    videoFrame.src = "";
-
     try{
 
-        const now =
+        channelName.innerText =
+        channels[id].name;
+
+        const time =
         Math.floor(Date.now()/120000);
 
         const response =
         await fetch(
-        "https://still-wave-10d7.kuldeeprai75220.workers.dev/token?id="+
-        id+
-        "&k="+
-        SECRET+
-        "&t="+
-        now
+
+        "https://still-wave-10d7.kuldeeprai75220.workers.dev/token?id="
+        +id+
+        "&k="+SECRET+
+        "&t="+time
+
         );
+
+        if(!response.ok){
+
+            throw new Error(
+            "Token Failed"
+            );
+
+        }
 
         const data =
         await response.json();
 
-        videoFrame.src = data.url;
+        frame.src =
+        data.url;
 
     }
 
@@ -660,19 +660,6 @@ async function loadChannel(id){
 
     }
 
-    document.querySelectorAll(".card")
-    .forEach(card=>{
-
-        card.classList.remove("active");
-
-        if(card.dataset.id === id){
-
-            card.classList.add("active");
-
-        }
-
-    });
-
 }
 
 document.querySelectorAll(".card")
@@ -680,26 +667,15 @@ document.querySelectorAll(".card")
 
     card.addEventListener("click",()=>{
 
-        loadChannel(card.dataset.id);
+        loadChannel(
+        card.dataset.id
+        );
 
     });
 
 });
 
 loadChannel("hindi");
-
-setInterval(()=>{
-
-    const active =
-    document.querySelector(".card.active");
-
-    if(active){
-
-        loadChannel(active.dataset.id);
-
-    }
-
-},110000);
 
 </script>
 </body>
