@@ -584,12 +584,8 @@ body::after{
 
 <script>
 
-const SECRET = "KLD_PRIVATE_2026";
-
 const WORKER =
-"https://yellow-glade-e4a4.kuldeeprai75220.workers.dev";
-
-/* ================= CHANNELS ================= */
+"https://still-wave-10d7.kuldeeprai75220.workers.dev";
 
 const channels = {
 
@@ -621,8 +617,6 @@ document.getElementById("videoFrame");
 const channelName =
 document.getElementById("channelName");
 
-/* ================= LOAD CHANNEL ================= */
-
 async function loadChannel(id){
 
     try{
@@ -636,56 +630,17 @@ async function loadChannel(id){
         channelName.innerText =
         channels[id].name;
 
-        frame.src = "";
-
-        const currentTime =
-
-        Math.floor(
-        Date.now()/120000
-        );
-
-        const tokenURL =
+        frame.src =
 
         WORKER +
 
-        "/token?id=" +
+        "/watch?id=" +
 
         id +
 
-        "&k=" +
+        "&r=" +
 
-        SECRET +
-
-        "&t=" +
-
-        currentTime;
-
-        const response =
-        await fetch(tokenURL);
-
-        if(!response.ok){
-
-            throw new Error(
-            "Token Failed"
-            );
-
-        }
-
-        const data =
-        await response.json();
-
-        if(!data.url){
-
-            throw new Error(
-            "Invalid Response"
-            );
-
-        }
-
-        frame.src =
-WORKER +
-"/watch?id=" +
-id;
+        Math.random();
 
         document.querySelectorAll(".card")
         .forEach(card=>{
@@ -726,8 +681,6 @@ id;
 
 }
 
-/* ================= CARD CLICK ================= */
-
 document.querySelectorAll(".card")
 .forEach(card=>{
 
@@ -740,8 +693,6 @@ document.querySelectorAll(".card")
     });
 
 });
-
-/* ================= INITIAL ================= */
 
 const params =
 new URLSearchParams(
