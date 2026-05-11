@@ -586,6 +586,9 @@ body::after{
 
 const SECRET = "KLD_PRIVATE_2026";
 
+const WORKER =
+"https://fancy-fire-eec1.kuldeeprai75220.workers.dev";
+
 /* ================= CHANNELS ================= */
 
 const channels = {
@@ -635,15 +638,27 @@ async function loadChannel(id){
 
         frame.src = "";
 
-        const time =
-        Math.floor(Date.now()/120000);
+        const currentTime =
+
+        Math.floor(
+        Date.now()/120000
+        );
 
         const tokenURL =
 
-        "https://still-wave-10d7.kuldeeprai75220.workers.dev/token?id="
-        + id +
-        "&k=" + SECRET +
-        "&t=" + time;
+        WORKER +
+
+        "/token?id=" +
+
+        id +
+
+        "&k=" +
+
+        SECRET +
+
+        "&t=" +
+
+        currentTime;
 
         const response =
         await fetch(tokenURL);
@@ -651,7 +666,7 @@ async function loadChannel(id){
         if(!response.ok){
 
             throw new Error(
-            "Token Error"
+            "Token Failed"
             );
 
         }
@@ -670,22 +685,24 @@ async function loadChannel(id){
         frame.src =
         data.url;
 
-        /* ACTIVE CARD */
-
         document.querySelectorAll(".card")
         .forEach(card=>{
 
-            card.classList.remove("active");
+            card.classList.remove(
+            "active"
+            );
 
-            if(card.dataset.id === id){
+            if(
+            card.dataset.id === id
+            ){
 
-                card.classList.add("active");
+                card.classList.add(
+                "active"
+                );
 
             }
 
         });
-
-        /* URL UPDATE */
 
         history.replaceState(
         null,
@@ -699,7 +716,9 @@ async function loadChannel(id){
 
         console.log(err);
 
-        alert("Stream Error");
+        alert(
+        "Stream Error"
+        );
 
     }
 
@@ -720,24 +739,7 @@ document.querySelectorAll(".card")
 
 });
 
-/* ================= AUTO REFRESH TOKEN ================= */
-
-setInterval(()=>{
-
-    const active =
-    document.querySelector(".card.active");
-
-    if(active){
-
-        loadChannel(
-        active.dataset.id
-        );
-
-    }
-
-},110000);
-
-/* ================= INITIAL LOAD ================= */
+/* ================= INITIAL ================= */
 
 const params =
 new URLSearchParams(
@@ -745,7 +747,8 @@ window.location.search
 );
 
 const currentChannel =
-params.get("channel") || "hindi";
+params.get("channel")
+|| "hindi";
 
 loadChannel(currentChannel);
 
