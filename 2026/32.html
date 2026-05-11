@@ -586,6 +586,8 @@ body::after{
 
 const SECRET = "KLD_PRIVATE_2026";
 
+/* ================= CHANNELS ================= */
+
 const channels = {
 
     hindi:{
@@ -616,30 +618,40 @@ document.getElementById("videoFrame");
 const channelName =
 document.getElementById("channelName");
 
+/* ================= LOAD CHANNEL ================= */
+
 async function loadChannel(id){
 
     try{
 
+        if(!channels[id]){
+
+            id = "hindi";
+
+        }
+
         channelName.innerText =
         channels[id].name;
+
+        frame.src = "";
 
         const time =
         Math.floor(Date.now()/120000);
 
-        const response =
-        await fetch(
+        const tokenURL =
 
         "https://still-wave-10d7.kuldeeprai75220.workers.dev/token?id="
-        +id+
-        "&k="+SECRET+
-        "&t="+time
+        + id +
+        "&k=" + SECRET +
+        "&t=" + time;
 
-        );
+        const response =
+        await fetch(tokenURL);
 
         if(!response.ok){
 
             throw new Error(
-            "Token Failed"
+            "Token Error"
             );
 
         }
@@ -647,8 +659,39 @@ async function loadChannel(id){
         const data =
         await response.json();
 
+        if(!data.url){
+
+            throw new Error(
+            "Invalid Response"
+            );
+
+        }
+
         frame.src =
         data.url;
+
+        /* ACTIVE CARD */
+
+        document.querySelectorAll(".card")
+        .forEach(card=>{
+
+            card.classList.remove("active");
+
+            if(card.dataset.id === id){
+
+                card.classList.add("active");
+
+            }
+
+        });
+
+        /* URL UPDATE */
+
+        history.replaceState(
+        null,
+        null,
+        "?channel="+id
+        );
 
     }
 
@@ -661,6 +704,8 @@ async function loadChannel(id){
     }
 
 }
+
+/* ================= CARD CLICK ================= */
 
 document.querySelectorAll(".card")
 .forEach(card=>{
@@ -675,7 +720,34 @@ document.querySelectorAll(".card")
 
 });
 
-loadChannel("hindi");
+/* ================= AUTO REFRESH TOKEN ================= */
+
+setInterval(()=>{
+
+    const active =
+    document.querySelector(".card.active");
+
+    if(active){
+
+        loadChannel(
+        active.dataset.id
+        );
+
+    }
+
+},110000);
+
+/* ================= INITIAL LOAD ================= */
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const currentChannel =
+params.get("channel") || "hindi";
+
+loadChannel(currentChannel);
 
 </script>
 </body>
