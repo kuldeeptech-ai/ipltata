@@ -683,7 +683,9 @@ async function loadChannel(id){
         }
 
         frame.src =
-        data.url;
+WORKER +
+"/watch?id=" +
+id;
 
         document.querySelectorAll(".card")
         .forEach(card=>{
