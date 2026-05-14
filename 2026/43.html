@@ -145,6 +145,10 @@ box.innerHTML = msg;
 
 }
 
+   player.addEventListener("error", (event) => {
+  console.log("PLAYER ERROR:", event.detail);
+  alert(JSON.stringify(event.detail));
+});
 /* =========================
    FETCH JSON
 ========================= */
@@ -257,8 +261,9 @@ match[1];
 }
 
 }catch(e){
-
-console.log(e);
+  console.log("LOAD ERROR:", e);
+  alert(JSON.stringify(e));
+}
 
 }
 
