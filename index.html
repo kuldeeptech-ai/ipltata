@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CRICHYPE LIVE</title>
+<title>Kuldeep Rai</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -47,6 +47,46 @@ body::after{
     opacity:.05;
 }
 
+/* ================= ALERT ================= */
+
+.alert-box{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+
+    background:linear-gradient(90deg,#00c853,#00e676);
+
+    color:#fff;
+
+    padding:14px 22px;
+
+    border-radius:16px;
+
+    font-size:14px;
+    font-weight:700;
+
+    z-index:99999;
+
+    box-shadow:0 10px 30px rgba(0,255,100,.35);
+
+    animation:slideDown .5s ease;
+}
+
+@keyframes slideDown{
+
+    from{
+        opacity:0;
+        transform:translate(-50%,-20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translate(-50%,0);
+    }
+
+}
+
 /* ================= HEADER ================= */
 
 .topbar{
@@ -60,9 +100,16 @@ body::after{
     z-index:999;
 }
 
+.header-flex{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
 .logo-wrap{
     display:flex;
-    justify-content:center;
     align-items:center;
     gap:10px;
     flex-wrap:wrap;
@@ -97,6 +144,22 @@ body::after{
     animation:pulse 1s infinite;
 }
 
+.user-counter{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,255,255,.05);
+
+    padding:6px 12px;
+
+    border-radius:12px;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    min-height:42px;
+}
+
 @keyframes pulse{
 
     0%{
@@ -129,8 +192,9 @@ body::after{
     display:inline-block;
     padding:10px 0;
 
-    color:#ffd54f;
-    font-weight:600;
+    color:#25d366;
+
+    font-weight:700;
 
     animation:marquee 15s linear infinite;
 }
@@ -262,25 +326,6 @@ body::after{
     overflow:hidden;
 }
 
-.card::before{
-    content:'';
-    position:absolute;
-    inset:0;
-
-    background:linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,.08),
-    transparent);
-
-    transform:translateX(-100%);
-}
-
-.card:hover::before{
-    transform:translateX(100%);
-    transition:1s;
-}
-
 .card:hover{
     transform:translateY(-4px);
 }
@@ -301,84 +346,148 @@ body::after{
     color:#b7c5d8;
 }
 
-/* ================= TELEGRAM BOX ================= */
+/* ================= AD BOX ================= */
 
-.telegram-box{
+.ad-box{
     margin-top:22px;
 
-    background:linear-gradient(180deg,#041f4f,#02132d);
+    background:linear-gradient(180deg,#101826,#0b1220);
 
-    border-radius:24px;
+    border-radius:22px;
 
-    border:2px solid rgba(0,140,255,.15);
+    border:1px solid rgba(255,255,255,.06);
 
-    padding:18px;
+    padding:15px;
 
-    box-shadow:0 0 30px rgba(0,132,255,.12);
+    overflow:hidden;
 }
 
-.telegram-top{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    flex-wrap:wrap;
+.ad-label{
+    color:#ffc400;
+    font-size:12px;
+    font-weight:700;
+
+    margin-bottom:10px;
 }
 
-.telegram-icon{
-    width:55px;
-    height:55px;
-
-    border-radius:50%;
-
-    background:#0f7cff;
+.ad-content{
+    width:100%;
+    min-height:90px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    font-size:24px;
+    border-radius:14px;
 
-    box-shadow:0 0 20px rgba(15,124,255,.35);
+    overflow:hidden;
 }
 
-.telegram-content h2{
-    font-size:22px;
-    color:#46a5ff;
-}
+/* ================= WIDGET BOX ================= */
 
-.telegram-content p{
-    margin-top:4px;
-    color:#d4dceb;
-    font-size:13px;
-}
+.widget-box{
+    margin-top:22px;
 
-.join-btn{
-    width:100%;
-    margin-top:18px;
+    background:linear-gradient(180deg,#09111d,#050b14);
 
-    border:none;
-    outline:none;
+    border-radius:24px;
 
     padding:15px;
 
-    border-radius:999px;
+    border:1px solid rgba(255,255,255,.06);
+}
 
-    background:linear-gradient(90deg,#0077ff,#11a6ff);
+.widget-title{
+    font-size:15px;
+    font-weight:700;
 
-    color:#fff;
+    color:#58b7ff;
 
+    margin-bottom:12px;
+}
+
+.jio-widget{
+    width:100%;
+    height:500px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#000;
+}
+
+/* ================= SHARE BOX ================= */
+
+.share-box{
+    margin-top:22px;
+
+    background:linear-gradient(180deg,#111827,#0b1220);
+
+    border-radius:24px;
+
+    padding:18px;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    text-align:center;
+}
+
+.share-title{
     font-size:16px;
     font-weight:700;
 
-    cursor:pointer;
+    color:#25d366;
 
-    box-shadow:0 0 25px rgba(0,132,255,.3);
-
-    transition:.3s;
+    margin-bottom:14px;
 }
 
-.join-btn:hover{
-    transform:scale(1.02);
+/* ================= FLOATING WHATSAPP ================= */
+
+.floating-whatsapp{
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    width:65px;
+    height:65px;
+
+    border-radius:50%;
+
+    background:#25d366;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:30px;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    z-index:99999;
+
+    box-shadow:0 0 25px rgba(37,211,102,.5);
+
+    animation:floatPulse 1.5s infinite;
+}
+
+@keyframes floatPulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.1);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
 }
 
 /* ================= MOBILE ================= */
@@ -393,22 +502,21 @@ body::after{
         grid-template-columns:1fr 1fr;
     }
 
-    .card{
-        padding:16px 10px;
-        border-radius:16px;
+}
+
+@media(max-width:600px){
+
+    .header-flex{
+        flex-direction:column;
+        align-items:flex-start;
     }
 
-    .card h3{
-        font-size:14px;
+    .user-counter{
+        width:100%;
     }
 
-    .telegram-content h2{
-        font-size:18px;
-    }
-
-    #videoFrame{
-        height:56vw;
-        min-height:210px;
+    .jio-widget{
+        height:420px;
     }
 
 }
@@ -423,28 +531,10 @@ body::after{
         font-size:24px;
     }
 
-    .live-badge{
-        font-size:11px;
-        padding:5px 10px;
-    }
-
-    .telegram-box{
-        padding:15px;
-    }
-
-    .join-btn{
-        font-size:14px;
-        padding:13px;
-    }
-
-    .channel-overlay{
-        font-size:11px;
-        padding:6px 10px;
-    }
-
-    #videoFrame{
-        height:58vw;
-        min-height:190px;
+    .floating-whatsapp{
+        width:58px;
+        height:58px;
+        font-size:26px;
     }
 
 }
@@ -454,19 +544,39 @@ body::after{
 
 <body>
 
+<!-- ALERT -->
+
+<div class="alert-box" id="alertBox">
+    ⚡ Join Now For Other Match Live Links ⚡
+</div>
+
 <!-- ================= HEADER ================= -->
 
 <div class="topbar">
 
-    <div class="logo-wrap">
+    <div class="header-flex">
 
-        <div class="logo">
-            Cric Kld 2026
+        <div class="logo-wrap">
+
+            <div class="logo">
+                Cric Kld 2026
+            </div>
+
+            <div class="live-badge">
+                <div class="dot"></div>
+                LIVE
+            </div>
+
         </div>
 
-        <div class="live-badge">
-            <div class="dot"></div>
-            LIVE
+        <div class="user-counter">
+
+            <script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script>
+
+            <script type="text/javascript">
+            sc_online_i(1734343,"ffffff","#ff1e05");
+            </script>
+
         </div>
 
     </div>
@@ -478,7 +588,7 @@ body::after{
 <div class="marquee">
 
     <span>
-        ⚡ Join Our WhatsApp Channel For Others Live Links ⚡ Join Our Whatsapp Channel For Others Live Links ⚡
+        ⚡ JOIN WHATSAPP CHANNEL FOR LIVE MATCH LINKS • FAST UPDATES • HD STREAMS ⚡
     </span>
 
 </div>
@@ -506,11 +616,8 @@ body::after{
         fullscreen;
         picture-in-picture"
         allowfullscreen
-        webkitallowfullscreen
-        mozallowfullscreen
         scrolling="no"
-        referrerpolicy="no-referrer"
-        loading="eager">
+        referrerpolicy="no-referrer">
     </iframe>
 
 </div>
@@ -545,44 +652,91 @@ body::after{
             <p>High Quality</p>
         </div>
 
-    
-
     </div>
 
-    <!-- ================= TELEGRAM ================= -->
+    <!-- ================= AD BOX ================= -->
 
-    <div class="telegram-box">
+    <div class="ad-box">
 
-        <div class="telegram-top">
+        <div class="ad-label">
+            Sponsored
+        </div>
 
-            <div class="telegram-icon">
-                ✈
-            </div>
+        <div class="ad-content">
 
-            <div class="telegram-content">
-
-                <h2>SUPPORT & BACKUP LINKS</h2>
-
-                <p>
-                    Get More Live Channels Links
-                </p>
-
-            </div>
+            YOUR_BANNER_AD_CODE_HERE
 
         </div>
 
-        <button class="join-btn"
-        onclick="window.open('https://whatsapp.com/channel/0029VbAzTAVBfxo0QPdrB11T')">
+    </div>
 
-            🔗 JOIN WHATSAPP CHANNEL NOW
+    <!-- ================= JIO WIDGET ================= -->
 
-        </button>
+    <div class="widget-box">
 
+        <div class="widget-title">
+            🏏 LIVE CRICKET UPDATES
+        </div>
+
+        <iframe
+        class="jio-widget"
+        src="https://widget.jionews.com/jiotv-cricket/prod/v1/index.html?theme=dark&ismobile=true"
+        scrolling="yes"
+        allowfullscreen>
+        </iframe>
+
+    </div>
+
+    <!-- ================= SHARE BOX ================= -->
+
+    <div class="share-box">
+
+        <div class="share-title">
+            📢 SHARE THIS STREAM
+        </div>
+<!-- ShareThis BEGINS -->
+<div class="sharethis-share-buttons" data-type="inline-share-buttons" data-labels="counts" data-show_total="true" data-size="small">
+<span data-network="facebook"></span>
+<span data-network="twitter"></span>
+<span data-network="pinterest"></span>
+<span data-network="email"></span>
+<span data-network="sms"></span>
+<span data-network="sharethis"></span>
+<span data-network="telegram"></span>
+<span data-network="whatsapp"></span>
+<span data-network="mailru"></span>
+<span data-network="googlebookmarks"></span>
+<span data-network="messenger"></span>
+<span data-network="reddit"></span>
+<span data-network="print"></span>
+</div>
+<!-- ShareThis ENDS -->
+       
     </div>
 
 </div>
 
+<!-- FLOATING WHATSAPP -->
+
+<a class="floating-whatsapp"
+href="https://whatsapp.com/channel/0029VbAzTAVBfxo0QPdrB11T"
+target="_blank">
+
+💬
+
+</a>
+
+<!-- SHARE SCRIPT -->
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js" defer></script>
+
 <script>
+/* ================= ALERT AUTO HIDE ================= */
+
+setTimeout(()=>{
+
+    document.getElementById("alertBox").style.display="none";
+
+},5000);
 
 /* ================= CHANNEL DATA ================= */
 
@@ -601,11 +755,6 @@ const channels = {
     tamil : {
         name : "Tamil IND only",
         url  : "https://crickld2026.netlify.app/all/Tamil"
-    },
-
-    telugu : {
-        name : "Telugu IND only",
-        url  : "https://crickld2026.netlify.app/all/telugu"
     },
 
     kayo : {
@@ -633,11 +782,7 @@ function loadChannel(id){
 
     const channel = channels[id];
 
-    /* CHANGE NAME */
-
     channelName.innerText = channel.name;
-
-    /* RELOAD IFRAME */
 
     videoFrame.src = "";
 
@@ -646,8 +791,6 @@ function loadChannel(id){
         videoFrame.src = channel.url;
 
     },100);
-
-    /* ACTIVE CARD */
 
     document.querySelectorAll(".card")
     .forEach(card=>{
@@ -661,8 +804,6 @@ function loadChannel(id){
         }
 
     });
-
-    /* URL CHANGE */
 
     history.replaceState(
     null,
@@ -679,9 +820,7 @@ document.querySelectorAll(".card")
 
     card.addEventListener("click",()=>{
 
-        const id = card.dataset.id;
-
-        loadChannel(id);
+        loadChannel(card.dataset.id);
 
     });
 
@@ -692,10 +831,9 @@ document.querySelectorAll(".card")
 const params =
 new URLSearchParams(window.location.search);
 
-const currentChannel =
-params.get("channel") || "hindi";
-
-loadChannel(currentChannel);
+loadChannel(
+params.get("channel") || "hindi"
+);
 
 </script>
 
