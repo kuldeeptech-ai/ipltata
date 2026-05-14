@@ -1,5 +1,22 @@
 [[redirects]]
-from = "/live/*"
-to = "https://we-live-v2.pages.dev/:splat"
+from = "/aioplayer"
+to = "https://we-live-v2.pages.dev/aioplayer"
 status = 200
 force = true
+
+[[redirects]]
+from = "/live-stream"
+to = "https://we-live-v2.pages.dev/live-stream"
+status = 200
+force = true
+
+[[redirects]]
+from = "/score"
+to = "https://we-live-v2.pages.dev/score"
+status = 200
+force = true
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
