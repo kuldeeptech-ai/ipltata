@@ -1,0 +1,5 @@
+[[redirects]]
+from = "/live/*"
+to = "https://we-live-v2.pages.dev/:splat"
+status = 200
+force = true
