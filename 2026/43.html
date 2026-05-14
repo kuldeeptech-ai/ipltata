@@ -496,7 +496,9 @@ for(const url of streamUrls){
 
 try{
 
-await player.load(url);
+await player.load(
+WORKER + encodeURIComponent(url)
+);
 
 await video.play();
 
