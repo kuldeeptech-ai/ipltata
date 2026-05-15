@@ -347,8 +347,33 @@ body::after{
     font-size:12px;
     color:#b7c5d8;
 }
+<!-- ================= AD BOX ================= -->
 
-/* ================= AD BOX ================= */
+<div class="ad-box">
+
+    <div class="ad-label">
+        Sponsored
+    </div>
+
+    <div class="ad-content">
+
+        <script>
+          atOptions = {
+            'key' : '438e1343768156b1ec8e7e10be5a0232',
+            'format' : 'iframe',
+            'height' : 600,
+            'width' : 1200,
+            'params' : {}
+          };
+        </script>
+
+        <script src="https://www.highperformanceformat.com/438e1343768156b1ec8e7e10be5a0232/invoke.js"></script>
+
+    </div>
+
+</div>
+
+/* ================= BIG AD BOX ================= */
 
 .ad-box{
     margin-top:22px;
@@ -359,32 +384,100 @@ body::after{
 
     border:1px solid rgba(255,255,255,.06);
 
-    padding:15px;
+    padding:10px;
 
     overflow:hidden;
 }
 
-.ad-label{
-    color:#ffc400;
-    font-size:12px;
-    font-weight:700;
-
-    margin-bottom:10px;
-}
-
 .ad-content{
     width:100%;
-    min-height:90px;
+    height:600px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    border-radius:14px;
+    overflow:hidden;
+
+    border-radius:16px;
+}
+
+/* FORCE BIG IFRAME */
+
+.ad-content iframe{
+    width:100% !important;
+    height:600px !important;
+
+    border:none !important;
+
+    border-radius:16px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .ad-content{
+        height:320px;
+    }
+
+    .ad-content iframe{
+        height:320px !important;
+    }
+
+}/* ================= BIG AD BOX ================= */
+
+.ad-box{
+    margin-top:22px;
+
+    background:linear-gradient(180deg,#101826,#0b1220);
+
+    border-radius:22px;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    padding:10px;
 
     overflow:hidden;
 }
 
+.ad-content{
+    width:100%;
+    height:600px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    border-radius:16px;
+}
+
+/* FORCE BIG IFRAME */
+
+.ad-content iframe{
+    width:100% !important;
+    height:600px !important;
+
+    border:none !important;
+
+    border-radius:16px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .ad-content{
+        height:320px;
+    }
+
+    .ad-content iframe{
+        height:320px !important;
+    }
+
+}
 /* ================= WIDGET BOX ================= */
 
 .widget-box{
