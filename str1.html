@@ -75,33 +75,45 @@ html, body {
 
             
         <script>
-jwplayer.key = "YOUR_JWPLAYER_KEY";
+jwplayer.key = 'YOUR_JW_PLAYER_KEY'; // IMPORTANT: Replace with your actual key
 
-/* CUSTOM THUMBNAIL */
-const DEMO_THUMB =
-"https://plain-apac-prod-public.komododecks.com/202605/15/BBmtvaRJgaiPJkb68zIS/image.jpg";
+        (function() {
 
-/* CUSTOM CIRCLE LOGO */
-const DEMO_LOGO =
-"https://plain-apac-prod-public.komododecks.com/202605/15/n37lRAW4k538Hu2b6abv/image.png";
+            const origOpen = XMLHttpRequest.prototype.open;
 
-const player = jwplayer("player").setup({
+            XMLHttpRequest.prototype.open = function(method, url) {
 
-    playlist:[{
+                if (url && !url.includes("__hdnea__")) {
 
-        file:"https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1778851352~exp=1778872952~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=c9e763aeedf8d5c06ea3db11b842b430c9e26194d4ee047e1631c062dff447a1",
+                    url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1778836785~exp=1778858385~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=4c0ae2530772c809f8e9ae9a1ad9882aebfeb85723aa7fc001f60bca376ffd3f";
 
-        // CUSTOM THUMBNAIL
-        image: DEMO_THUMB,
+                }
 
-        drm:{
-            clearkey:{
-                keyId:"400131994b445d8c8817202248760fda",
-                key:"2d56cb6f07a75b9aff165d534ae2bfc4"
-            }
-        }
+                return origOpen.apply(this, arguments);
 
-    }],
+            };
+
+        })();
+
+        jwplayer("player").setup({
+
+            playlist: [{
+
+                file: "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1778836785~exp=1778858385~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=4c0ae2530772c809f8e9ae9a1ad9882aebfeb85723aa7fc001f60bca376ffd3f",
+
+                drm: {
+
+                    clearkey: {
+
+                        keyId: "400131994b445d8c8817202248760fda",
+
+                        key: "2d56cb6f07a75b9aff165d534ae2bfc4"
+
+                    }
+
+                }
+
+            }],
 
     width: "100%",
     height: "100%",
