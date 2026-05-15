@@ -72,7 +72,9 @@ html, body {
 </div>
 
 
-<script>
+
+            
+        <script>
 jwplayer.key = "YOUR_JWPLAYER_KEY";
 
 /* CUSTOM THUMBNAIL */
@@ -83,46 +85,23 @@ const DEMO_THUMB =
 const DEMO_LOGO =
 "https://plain-apac-prod-public.komododecks.com/202605/15/n37lRAW4k538Hu2b6abv/image.png";
 
-jwplayer.key = 'YOUR_JW_PLAYER_KEY'; // IMPORTANT: Replace with your actual key
+const player = jwplayer("player").setup({
 
-        (function() {
+    playlist:[{
 
-            const origOpen = XMLHttpRequest.prototype.open;
+        file:"https://dck1-fs-live.dtcdn.dazn.com/out/v1/814bffb9b389f652/3bef222785684b458a800836ac836063/index.mpd",
 
-            XMLHttpRequest.prototype.open = function(method, url) {
+        // CUSTOM THUMBNAIL
+        image: DEMO_THUMB,
 
-                if (url && !url.includes("__hdnea__")) {
+        drm:{
+            clearkey:{
+                keyId:"2233b72332765f888a43983a98deec5c",
+                key:"2cc1b1862998c1f22190121c36149a7f"
+            }
+        }
 
-                    url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1778836785~exp=1778858385~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=4c0ae2530772c809f8e9ae9a1ad9882aebfeb85723aa7fc001f60bca376ffd3f";
-
-                }
-
-                return origOpen.apply(this, arguments);
-
-            };
-
-        })();
-
-        jwplayer("player").setup({
-
-            playlist: [{
-
-                file: "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1778836785~exp=1778858385~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=4c0ae2530772c809f8e9ae9a1ad9882aebfeb85723aa7fc001f60bca376ffd3f",
-
-                drm: {
-
-                    clearkey: {
-
-                        keyId: "400131994b445d8c8817202248760fda",
-
-                        key: "2d56cb6f07a75b9aff165d534ae2bfc4"
-
-                    }
-
-                }
-
-            }],
-
+    }],
 
     width: "100%",
     height: "100%",
@@ -410,6 +389,5 @@ player.on("error", e => {
 
 });
 </script>
-
 </body>
 </html>
