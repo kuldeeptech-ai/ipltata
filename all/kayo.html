@@ -72,30 +72,24 @@ html, body {
 </div>
 
 <script>
-
-
-        
-
-        
 jwplayer.key = "YOUR_JWPLAYER_KEY";
 
-/* START STREAM */
+/* CUSTOM THUMBNAIL */
+const DEMO_THUMB =
+"https://plain-apac-prod-public.komododecks.com/202605/15/BBmtvaRJgaiPJkb68zIS/image.jpg";
 
-function startStream(){
-
-    document.getElementById("popup").classList.add("hide");
-
-    document.getElementById("player-container").style.display = "block";
-
-}
-
-/* JW PLAYER */
+/* CUSTOM CIRCLE LOGO */
+const DEMO_LOGO =
+"https://plain-apac-prod-public.komododecks.com/202605/15/n37lRAW4k538Hu2b6abv/image.png";
 
 const player = jwplayer("player").setup({
 
     playlist:[{
 
         file:"https://dck1-fs-live.dtcdn.dazn.com/out/v1/814bffb9b389f652/3bef222785684b458a800836ac836063/index.mpd",
+
+        // CUSTOM THUMBNAIL
+        image: DEMO_THUMB,
 
         drm:{
             clearkey:{
@@ -106,7 +100,292 @@ const player = jwplayer("player").setup({
 
     }],
 
+    width: "100%",
+    height: "100%",
 
+    aspectratio: "16:9",
+
+    stretching: "uniform",
+
+    // MANUAL PLAY
+    autostart: false,
+
+    controls: true,
+
+    fullscreen: true
+
+});
+
+
+/* PLAYER READY */
+
+player.on('ready', function () {
+
+    let stretchModes = [
+        "uniform",
+        "fill",
+        "exactfit",
+        "none"
+    ];
+
+    let current = 0;
+
+    /* CUSTOM STRETCH BUTTON */
+
+    player.addButton(
+
+        "https://plain-apac-prod-public.komododecks.com/202605/15/JrbwHym1y6mzCaC2awsH/image.jpg",
+
+        "Stretch Mode",
+
+        function () {
+
+            current++;
+
+            if(current >= stretchModes.length){
+                current = 0;
+            }
+
+            const mode = stretchModes[current];
+
+            /* VIDEO STRETCH */
+
+            player.setConfig({
+                stretching: mode
+            });
+
+
+            /* START THUMB STRETCH */
+
+            const preview =
+            document.querySelector(".jw-preview");
+
+            if(preview){
+
+                if(mode === "fill"){
+
+                    preview.style.backgroundSize =
+                    "cover";
+
+                }else if(mode === "exactfit"){
+
+                    preview.style.backgroundSize =
+                    "100% 100%";
+
+                }else{
+
+                    preview.style.backgroundSize =
+                    "contain";
+
+                }
+
+            }
+
+
+            /* PAUSE THUMB STRETCH */
+
+            const pauseThumb =
+            document.getElementById("pause-thumb");
+
+            if(pauseThumb){
+
+                if(mode === "fill"){
+
+                    pauseThumb.style.backgroundSize =
+                    "cover";
+
+                }else if(mode === "exactfit"){
+
+                    pauseThumb.style.backgroundSize =
+                    "100% 100%";
+
+                }else{
+
+                    pauseThumb.style.backgroundSize =
+                    "contain";
+
+                }
+
+            }
+
+
+            /* LOGO STRETCH */
+
+            const logo =
+            document.getElementById("custom-logo");
+
+            if(logo){
+
+                if(mode === "fill"){
+
+                    logo.style.transform =
+                    "scale(1.25)";
+
+                }else if(mode === "exactfit"){
+
+                    logo.style.transform =
+                    "scaleX(1.35) scaleY(1.05)";
+
+                }else{
+
+                    logo.style.transform =
+                    "scale(1)";
+
+                }
+
+            }
+
+        },
+
+        "stretch-button"
+
+    );
+
+
+    /* CUSTOM TOP LEFT LOGO */
+
+    const logo = document.createElement("img");
+
+    // CUSTOM PNG LOGO
+    logo.src = DEMO_LOGO;
+
+    logo.id = "custom-logo";
+
+    logo.style.position = "absolute";
+
+    logo.style.top = "15px";
+
+    logo.style.left = "15px";
+
+    logo.style.width = "50px";
+
+    logo.style.height = "50px";
+
+    logo.style.objectFit = "contain";
+
+    logo.style.borderRadius = "50%";
+
+    logo.style.zIndex = "999999";
+
+    logo.style.pointerEvents = "none";
+
+    logo.style.transition = "0.3s ease";
+
+    player.getContainer().appendChild(logo);
+
+});
+
+
+/* SHOW THUMBNAIL AGAIN ON PAUSE */
+
+player.on("pause", function(){
+
+    const container =
+    player.getContainer();
+
+    let overlay =
+    document.getElementById("pause-thumb");
+
+    if(!overlay){
+
+        overlay = document.createElement("div");
+
+        overlay.id = "pause-thumb";
+
+        overlay.style.position = "absolute";
+
+        overlay.style.top = "0";
+
+        overlay.style.left = "0";
+
+        overlay.style.width = "100%";
+
+        overlay.style.height = "100%";
+
+        overlay.style.backgroundImage =
+        `url(${DEMO_THUMB})`;
+
+        overlay.style.backgroundPosition =
+        "center";
+
+        overlay.style.backgroundRepeat =
+        "no-repeat";
+
+        // SAME AS START
+        overlay.style.backgroundSize =
+        "contain";
+
+        overlay.style.backgroundColor =
+        "#000";
+
+        // CONTROLS KE NICHE
+        overlay.style.zIndex = "1";
+
+        overlay.style.pointerEvents = "none";
+
+        container.appendChild(overlay);
+
+    }
+
+    overlay.style.display = "block";
+
+
+    /* SHOW CONTROLS */
+
+    const controls =
+    container.querySelector(".jw-controls");
+
+    if(controls){
+
+        controls.style.opacity = "1";
+
+        controls.style.visibility = "visible";
+
+        controls.style.display = "flex";
+
+        controls.style.zIndex = "99999";
+
+    }
+
+});
+
+
+/* HIDE THUMB WHEN PLAY */
+
+player.on("play", function(){
+
+    const overlay =
+    document.getElementById("pause-thumb");
+
+    if(overlay){
+
+        overlay.style.display = "none";
+
+    }
+
+});
+
+
+/* ERROR */
+
+player.on("error", e => {
+
+    document.body.innerHTML = `
+    <div style="
+        color:white;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:#000;
+        font-family:Arial;
+        font-size:20px;
+    ">
+        Stream Error (${e.code})
+    </div>`;
+
+});
+</script>
     width: "100%",
     height: "100%",
     aspectratio: "16:9",
