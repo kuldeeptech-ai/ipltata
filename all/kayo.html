@@ -71,80 +71,30 @@ html, body {
     </div>
 </div>
 
-    <script>
-jwplayer.key = "YOUR_JW_PLAYER_KEY";
+   <script>
+jwplayer.key = "YOUR_JWPLAYER_KEY";
 
-/* =========================
-   CUSTOM THUMBNAIL
-========================= */
+/* CUSTOM THUMBNAIL */
 const DEMO_THUMB =
 "https://plain-apac-prod-public.komododecks.com/202605/15/BBmtvaRJgaiPJkb68zIS/image.jpg";
 
-/* =========================
-   CUSTOM CIRCLE LOGO
-========================= */
+/* CUSTOM CIRCLE LOGO */
 const DEMO_LOGO =
 "https://plain-apac-prod-public.komododecks.com/202605/15/n37lRAW4k538Hu2b6abv/image.png";
 
-
-/* =========================
-   AUTO TOKEN APPEND
-========================= */
-(function () {
-
-    const TOKEN =
-    "__hdnea__=st=1778836785~exp=1778858385~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=4c0ae2530772c809f8e9ae9a1ad9882aebfeb85723aa7fc001f60bca376ffd3f";
-
-    const origOpen =
-    XMLHttpRequest.prototype.open;
-
-    XMLHttpRequest.prototype.open =
-    function(method, url) {
-
-        try{
-
-            if(
-                typeof url === "string" &&
-                url.includes("bpk-tv") &&
-                !url.includes("__hdnea__")
-            ){
-
-                url +=
-                (url.includes("?") ? "&" : "?") +
-                TOKEN;
-
-                arguments[1] = url;
-            }
-
-        }catch(e){}
-
-        return origOpen.apply(this, arguments);
-
-    };
-
-})();
-
-
-/* =========================
-   PLAYER SETUP
-========================= */
 const player = jwplayer("player").setup({
 
     playlist:[{
 
-        file:
-        "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1778836785~exp=1778858385~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=4c0ae2530772c809f8e9ae9a1ad9882aebfeb85723aa7fc001f60bca376ffd3f",
+        file:"https://dck1-fs-live.dtcdn.dazn.com/out/v1/814bffb9b389f652/3bef222785684b458a800836ac836063/index.mpd",
 
-        /* CUSTOM THUMB */
+        // CUSTOM THUMBNAIL
         image: DEMO_THUMB,
 
         drm:{
             clearkey:{
-                keyId:
-                "400131994b445d8c8817202248760fda",
-
-                key:
-                "2d56cb6f07a75b9aff165d534ae2bfc4"
+                keyId:"2233b72332765f888a43983a98deec5c",
+                key:"2cc1b1862998c1f22190121c36149a7f"
             }
         }
 
@@ -157,7 +107,7 @@ const player = jwplayer("player").setup({
 
     stretching: "uniform",
 
-    /* MANUAL PLAY */
+    // MANUAL PLAY
     autostart: false,
 
     controls: true,
@@ -167,9 +117,8 @@ const player = jwplayer("player").setup({
 });
 
 
-/* =========================
-   PLAYER READY
-========================= */
+/* PLAYER READY */
+
 player.on('ready', function () {
 
     let stretchModes = [
@@ -181,10 +130,8 @@ player.on('ready', function () {
 
     let current = 0;
 
+    /* CUSTOM STRETCH BUTTON */
 
-    /* =========================
-       CUSTOM STRETCH BUTTON
-    ========================= */
     player.addButton(
 
         "https://plain-apac-prod-public.komododecks.com/202605/15/JrbwHym1y6mzCaC2awsH/image.jpg",
@@ -199,17 +146,17 @@ player.on('ready', function () {
                 current = 0;
             }
 
-            const mode =
-            stretchModes[current];
-
+            const mode = stretchModes[current];
 
             /* VIDEO STRETCH */
+
             player.setConfig({
                 stretching: mode
             });
 
 
             /* START THUMB STRETCH */
+
             const preview =
             document.querySelector(".jw-preview");
 
@@ -236,6 +183,7 @@ player.on('ready', function () {
 
 
             /* PAUSE THUMB STRETCH */
+
             const pauseThumb =
             document.getElementById("pause-thumb");
 
@@ -262,6 +210,7 @@ player.on('ready', function () {
 
 
             /* LOGO STRETCH */
+
             const logo =
             document.getElementById("custom-logo");
 
@@ -293,12 +242,11 @@ player.on('ready', function () {
     );
 
 
-    /* =========================
-       CUSTOM TOP LEFT LOGO
-    ========================= */
-    const logo =
-    document.createElement("img");
+    /* CUSTOM TOP LEFT LOGO */
 
+    const logo = document.createElement("img");
+
+    // CUSTOM PNG LOGO
     logo.src = DEMO_LOGO;
 
     logo.id = "custom-logo";
@@ -328,9 +276,8 @@ player.on('ready', function () {
 });
 
 
-/* =========================
-   SHOW THUMB ON PAUSE
-========================= */
+/* SHOW THUMBNAIL AGAIN ON PAUSE */
+
 player.on("pause", function(){
 
     const container =
@@ -341,26 +288,19 @@ player.on("pause", function(){
 
     if(!overlay){
 
-        overlay =
-        document.createElement("div");
+        overlay = document.createElement("div");
 
-        overlay.id =
-        "pause-thumb";
+        overlay.id = "pause-thumb";
 
-        overlay.style.position =
-        "absolute";
+        overlay.style.position = "absolute";
 
-        overlay.style.top =
-        "0";
+        overlay.style.top = "0";
 
-        overlay.style.left =
-        "0";
+        overlay.style.left = "0";
 
-        overlay.style.width =
-        "100%";
+        overlay.style.width = "100%";
 
-        overlay.style.height =
-        "100%";
+        overlay.style.height = "100%";
 
         overlay.style.backgroundImage =
         `url(${DEMO_THUMB})`;
@@ -371,52 +311,47 @@ player.on("pause", function(){
         overlay.style.backgroundRepeat =
         "no-repeat";
 
+        // SAME AS START
         overlay.style.backgroundSize =
         "contain";
 
         overlay.style.backgroundColor =
         "#000";
 
-        overlay.style.zIndex =
-        "1";
+        // CONTROLS KE NICHE
+        overlay.style.zIndex = "1";
 
-        overlay.style.pointerEvents =
-        "none";
+        overlay.style.pointerEvents = "none";
 
         container.appendChild(overlay);
 
     }
 
-    overlay.style.display =
-    "block";
+    overlay.style.display = "block";
 
 
     /* SHOW CONTROLS */
+
     const controls =
     container.querySelector(".jw-controls");
 
     if(controls){
 
-        controls.style.opacity =
-        "1";
+        controls.style.opacity = "1";
 
-        controls.style.visibility =
-        "visible";
+        controls.style.visibility = "visible";
 
-        controls.style.display =
-        "flex";
+        controls.style.display = "flex";
 
-        controls.style.zIndex =
-        "99999";
+        controls.style.zIndex = "99999";
 
     }
 
 });
 
 
-/* =========================
-   HIDE THUMB ON PLAY
-========================= */
+/* HIDE THUMB WHEN PLAY */
+
 player.on("play", function(){
 
     const overlay =
@@ -424,17 +359,15 @@ player.on("play", function(){
 
     if(overlay){
 
-        overlay.style.display =
-        "none";
+        overlay.style.display = "none";
 
     }
 
 });
 
 
-/* =========================
-   ERROR HANDLER
-========================= */
+/* ERROR */
+
 player.on("error", e => {
 
     document.body.innerHTML = `
@@ -452,7 +385,6 @@ player.on("error", e => {
     </div>`;
 
 });
-    </script>
-    
+</script>    
 </body>
 </html>
