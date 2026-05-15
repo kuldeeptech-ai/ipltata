@@ -349,7 +349,6 @@ body::after{
 }
 
 /* ================= AD BOX ================= */
-
 .ad-box{
     margin-top:22px;
 
@@ -383,8 +382,46 @@ body::after{
     border-radius:14px;
 
     overflow:hidden;
+
+    position:relative;
 }
 
+/* FULL WIDTH AD IFRAME */
+
+.ad-content iframe{
+    width:100% !important;
+    max-width:100% !important;
+
+    height:90px !important;
+
+    border:none !important;
+
+    border-radius:14px;
+
+    display:block;
+}
+
+/* SCRIPT GENERATED ADS FIX */
+
+.ad-content ins,
+.ad-content div{
+    width:100% !important;
+    max-width:100% !important;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .ad-content{
+        min-height:80px;
+    }
+
+    .ad-content iframe{
+        height:80px !important;
+    }
+
+}
     /* ================= WIDGET BOX ================= */
 
 .widget-box{
@@ -670,7 +707,7 @@ body::after{
     'key' : '438e1343768156b1ec8e7e10be5a0232',
     'format' : 'iframe',
     'height' : 90,
-    'width' : window.innerWidth,
+    'width' : 1200,
     'params' : {}
   };
 </script>
