@@ -71,49 +71,84 @@ html, body {
     </div>
 </div>
 
+    <script>
+jwplayer.key = "YOUR_JW_PLAYER_KEY";
+
+/* =========================
+   CUSTOM THUMBNAIL
+========================= */
+const DEMO_THUMB =
+"https://plain-apac-prod-public.komododecks.com/202605/15/BBmtvaRJgaiPJkb68zIS/image.jpg";
+
+/* =========================
+   CUSTOM CIRCLE LOGO
+========================= */
+const DEMO_LOGO =
+"https://plain-apac-prod-public.komododecks.com/202605/15/n37lRAW4k538Hu2b6abv/image.png";
 
 
-            
-        <script>
-jwplayer.key = 'YOUR_JW_PLAYER_KEY'; // IMPORTANT: Replace with your actual key
+/* =========================
+   AUTO TOKEN APPEND
+========================= */
+(function () {
 
-        (function() {
+    const TOKEN =
+    "__hdnea__=st=1778836785~exp=1778858385~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=4c0ae2530772c809f8e9ae9a1ad9882aebfeb85723aa7fc001f60bca376ffd3f";
 
-            const origOpen = XMLHttpRequest.prototype.open;
+    const origOpen =
+    XMLHttpRequest.prototype.open;
 
-            XMLHttpRequest.prototype.open = function(method, url) {
+    XMLHttpRequest.prototype.open =
+    function(method, url) {
 
-                if (url && !url.includes("__hdnea__")) {
+        try{
 
-                    url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1778836785~exp=1778858385~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=4c0ae2530772c809f8e9ae9a1ad9882aebfeb85723aa7fc001f60bca376ffd3f";
+            if(
+                typeof url === "string" &&
+                url.includes("bpk-tv") &&
+                !url.includes("__hdnea__")
+            ){
 
-                }
+                url +=
+                (url.includes("?") ? "&" : "?") +
+                TOKEN;
 
-                return origOpen.apply(this, arguments);
+                arguments[1] = url;
+            }
 
-            };
+        }catch(e){}
 
-        })();
+        return origOpen.apply(this, arguments);
 
-        jwplayer("player").setup({
+    };
 
-            playlist: [{
+})();
 
-                file: "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1778836785~exp=1778858385~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=4c0ae2530772c809f8e9ae9a1ad9882aebfeb85723aa7fc001f60bca376ffd3f",
 
-                drm: {
+/* =========================
+   PLAYER SETUP
+========================= */
+const player = jwplayer("player").setup({
 
-                    clearkey: {
+    playlist:[{
 
-                        keyId: "400131994b445d8c8817202248760fda",
+        file:
+        "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1778836785~exp=1778858385~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=4c0ae2530772c809f8e9ae9a1ad9882aebfeb85723aa7fc001f60bca376ffd3f",
 
-                        key: "2d56cb6f07a75b9aff165d534ae2bfc4"
+        /* CUSTOM THUMB */
+        image: DEMO_THUMB,
 
-                    }
+        drm:{
+            clearkey:{
+                keyId:
+                "400131994b445d8c8817202248760fda",
 
-                }
+                key:
+                "2d56cb6f07a75b9aff165d534ae2bfc4"
+            }
+        }
 
-            }],
+    }],
 
     width: "100%",
     height: "100%",
@@ -122,7 +157,7 @@ jwplayer.key = 'YOUR_JW_PLAYER_KEY'; // IMPORTANT: Replace with your actual key
 
     stretching: "uniform",
 
-    // MANUAL PLAY
+    /* MANUAL PLAY */
     autostart: false,
 
     controls: true,
@@ -132,8 +167,9 @@ jwplayer.key = 'YOUR_JW_PLAYER_KEY'; // IMPORTANT: Replace with your actual key
 });
 
 
-/* PLAYER READY */
-
+/* =========================
+   PLAYER READY
+========================= */
 player.on('ready', function () {
 
     let stretchModes = [
@@ -145,8 +181,10 @@ player.on('ready', function () {
 
     let current = 0;
 
-    /* CUSTOM STRETCH BUTTON */
 
+    /* =========================
+       CUSTOM STRETCH BUTTON
+    ========================= */
     player.addButton(
 
         "https://plain-apac-prod-public.komododecks.com/202605/15/JrbwHym1y6mzCaC2awsH/image.jpg",
@@ -161,17 +199,17 @@ player.on('ready', function () {
                 current = 0;
             }
 
-            const mode = stretchModes[current];
+            const mode =
+            stretchModes[current];
+
 
             /* VIDEO STRETCH */
-
             player.setConfig({
                 stretching: mode
             });
 
 
             /* START THUMB STRETCH */
-
             const preview =
             document.querySelector(".jw-preview");
 
@@ -198,7 +236,6 @@ player.on('ready', function () {
 
 
             /* PAUSE THUMB STRETCH */
-
             const pauseThumb =
             document.getElementById("pause-thumb");
 
@@ -225,7 +262,6 @@ player.on('ready', function () {
 
 
             /* LOGO STRETCH */
-
             const logo =
             document.getElementById("custom-logo");
 
@@ -257,11 +293,12 @@ player.on('ready', function () {
     );
 
 
-    /* CUSTOM TOP LEFT LOGO */
+    /* =========================
+       CUSTOM TOP LEFT LOGO
+    ========================= */
+    const logo =
+    document.createElement("img");
 
-    const logo = document.createElement("img");
-
-    // CUSTOM PNG LOGO
     logo.src = DEMO_LOGO;
 
     logo.id = "custom-logo";
@@ -272,9 +309,9 @@ player.on('ready', function () {
 
     logo.style.left = "15px";
 
-    logo.style.width = "50px";
+    logo.style.width = "70px";
 
-    logo.style.height = "50px";
+    logo.style.height = "70px";
 
     logo.style.objectFit = "contain";
 
@@ -291,8 +328,9 @@ player.on('ready', function () {
 });
 
 
-/* SHOW THUMBNAIL AGAIN ON PAUSE */
-
+/* =========================
+   SHOW THUMB ON PAUSE
+========================= */
 player.on("pause", function(){
 
     const container =
@@ -303,19 +341,26 @@ player.on("pause", function(){
 
     if(!overlay){
 
-        overlay = document.createElement("div");
+        overlay =
+        document.createElement("div");
 
-        overlay.id = "pause-thumb";
+        overlay.id =
+        "pause-thumb";
 
-        overlay.style.position = "absolute";
+        overlay.style.position =
+        "absolute";
 
-        overlay.style.top = "0";
+        overlay.style.top =
+        "0";
 
-        overlay.style.left = "0";
+        overlay.style.left =
+        "0";
 
-        overlay.style.width = "100%";
+        overlay.style.width =
+        "100%";
 
-        overlay.style.height = "100%";
+        overlay.style.height =
+        "100%";
 
         overlay.style.backgroundImage =
         `url(${DEMO_THUMB})`;
@@ -326,47 +371,52 @@ player.on("pause", function(){
         overlay.style.backgroundRepeat =
         "no-repeat";
 
-        // SAME AS START
         overlay.style.backgroundSize =
         "contain";
 
         overlay.style.backgroundColor =
         "#000";
 
-        // CONTROLS KE NICHE
-        overlay.style.zIndex = "1";
+        overlay.style.zIndex =
+        "1";
 
-        overlay.style.pointerEvents = "none";
+        overlay.style.pointerEvents =
+        "none";
 
         container.appendChild(overlay);
 
     }
 
-    overlay.style.display = "block";
+    overlay.style.display =
+    "block";
 
 
     /* SHOW CONTROLS */
-
     const controls =
     container.querySelector(".jw-controls");
 
     if(controls){
 
-        controls.style.opacity = "1";
+        controls.style.opacity =
+        "1";
 
-        controls.style.visibility = "visible";
+        controls.style.visibility =
+        "visible";
 
-        controls.style.display = "flex";
+        controls.style.display =
+        "flex";
 
-        controls.style.zIndex = "99999";
+        controls.style.zIndex =
+        "99999";
 
     }
 
 });
 
 
-/* HIDE THUMB WHEN PLAY */
-
+/* =========================
+   HIDE THUMB ON PLAY
+========================= */
 player.on("play", function(){
 
     const overlay =
@@ -374,15 +424,17 @@ player.on("play", function(){
 
     if(overlay){
 
-        overlay.style.display = "none";
+        overlay.style.display =
+        "none";
 
     }
 
 });
 
 
-/* ERROR */
-
+/* =========================
+   ERROR HANDLER
+========================= */
 player.on("error", e => {
 
     document.body.innerHTML = `
@@ -400,6 +452,7 @@ player.on("error", e => {
     </div>`;
 
 });
-</script>
+    </script>
+    
 </body>
 </html>
