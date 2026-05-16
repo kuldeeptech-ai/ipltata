@@ -1,0 +1,84 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>CineStream</title>
+
+<link rel="stylesheet" href="style.css">
+
+<meta name="theme-color" content="#e50914">
+
+</head>
+<body>
+
+<div id="loader">
+<div class="spinner"></div>
+</div>
+
+<nav class="navbar">
+
+<div class="logo">
+CineStream
+</div>
+
+<div class="nav-links">
+
+<a href="#">Home</a>
+
+<a href="#">Movies</a>
+
+<a href="#">Series</a>
+
+<a href="login.html">Admin</a>
+
+</div>
+
+</nav>
+
+<section class="hero" id="hero">
+
+<div class="hero-overlay"></div>
+
+<div class="hero-content">
+
+<h1 id="heroTitle"></h1>
+
+<p id="heroDesc"></p>
+
+<button id="watchHero">
+Watch Now
+</button>
+
+</div>
+
+</section>
+
+<section class="search-wrap">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search Movies..."
+onkeyup="searchMovies()">
+
+</section>
+
+<section class="movies-section">
+
+<h2 class="section-title">
+Trending Movies
+</h2>
+
+<div class="movies-grid" id="moviesGrid"></div>
+
+</section>
+
+<script src="app.js"></script>
+
+</body>
+</html>
