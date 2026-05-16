@@ -25,6 +25,37 @@ body{
     overflow-x:hidden;
 }
 
+    /* Text selection + typing/click blocking */
+*{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+
+  caret-color: transparent;
+}
+
+/* Input, textarea bhi disable */
+input,
+textarea{
+  pointer-events: none;
+  user-select: none;
+  caret-color: transparent;
+}
+
+/* Pure page par typing block */
+body{
+  pointer-events: auto;
+}
+
+document,
+body{
+  -webkit-user-modify: read-only;
+}
+
 /* ================= BACKGROUND ================= */
 
 body::before{
@@ -887,6 +918,18 @@ params.get("channel") || "hindi"
 );
 
 </script>
+<script>
+document.addEventListener('keydown', function(e) {
+    e.preventDefault();
+});
 
+document.addEventListener('keypress', function(e) {
+    e.preventDefault();
+});
+
+document.addEventListener('paste', function(e) {
+    e.preventDefault();
+});
+</script>
 </body>
 </html>
