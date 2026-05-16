@@ -515,11 +515,9 @@ player.on("pause", function(){
         overlay.style.backgroundColor =
         "#000";
 
-        /* CONTROLS KE NICHE */
         overlay.style.zIndex =
         "1";
 
-        /* PLAY BUTTON CLICK WORK */
         overlay.style.pointerEvents =
         "none";
 
@@ -531,9 +529,7 @@ player.on("pause", function(){
     "block";
 
 
-    /* =========================
-       CONTROLS SHOW
-    ========================= */
+    /* CONTROLS SHOW */
     const controls =
     container.querySelector(".jw-controls");
 
@@ -545,18 +541,13 @@ player.on("pause", function(){
         controls.style.visibility =
         "visible";
 
-        controls.style.display =
-        "flex";
-
         controls.style.zIndex =
         "99999";
 
     }
 
 
-    /* =========================
-       PLAY BUTTON SHOW
-    ========================= */
+    /* BIG PLAY BUTTON SHOW */
     const displayIcon =
     container.querySelector(".jw-display");
 
@@ -567,12 +558,6 @@ player.on("pause", function(){
 
         displayIcon.style.visibility =
         "visible";
-
-        displayIcon.style.display =
-        "flex";
-
-        displayIcon.style.zIndex =
-        "99999";
 
     }
 
@@ -595,9 +580,7 @@ player.on("play", function(){
     }
 
 
-    /* =========================
-       PLAY BUTTON HIDE
-    ========================= */
+    /* BIG PLAY BUTTON HIDE */
     const container =
     player.getContainer();
 
@@ -606,15 +589,14 @@ player.on("play", function(){
 
     if(displayIcon){
 
+        /* SIRF VISUAL HIDE */
         displayIcon.style.opacity =
         "0";
-
-        displayIcon.style.visibility =
-        "hidden";
 
     }
 
 });
+
     
 /* =========================
    ERROR HANDLER
