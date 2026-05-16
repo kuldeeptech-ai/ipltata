@@ -1,6 +1,6 @@
 // admin.js
 
-const API_KEY="YOUR_TMDB_API_KEY";
+const API_KEY="047b384bf3ae9b2d3427ff0940a4dadc";
 
 function logout(){
 
