@@ -407,9 +407,11 @@ player.on("pause", function(){
         overlay.style.backgroundColor =
         "#000";
 
+        /* CONTROLS KE NICHE */
         overlay.style.zIndex =
         "1";
 
+        /* CLICK ALLOW */
         overlay.style.pointerEvents =
         "none";
 
@@ -419,6 +421,47 @@ player.on("pause", function(){
 
     overlay.style.display =
     "block";
+
+
+    /* =========================
+       CONTROLS ALWAYS SHOW
+    ========================= */
+    const controls =
+    container.querySelector(".jw-controls");
+
+    if(controls){
+
+        controls.style.opacity =
+        "1";
+
+        controls.style.visibility =
+        "visible";
+
+        controls.style.display =
+        "flex";
+
+        controls.style.zIndex =
+        "99999";
+
+    }
+
+
+    /* BIG PLAY BUTTON SHOW */
+    const displayIcon =
+    container.querySelector(".jw-display");
+
+    if(displayIcon){
+
+        displayIcon.style.opacity =
+        "1";
+
+        displayIcon.style.visibility =
+        "visible";
+
+        displayIcon.style.zIndex =
+        "99999";
+
+    }
 
 });
 
