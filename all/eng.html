@@ -72,61 +72,425 @@ html, body {
 </div>
 
 <script>
+jwplayer.key = "YOUR_JW_PLAYER_KEY";
+
+/* =========================
+   CUSTOM THUMBNAIL
+========================= */
+const DEMO_THUMB =
+"https://plain-apac-prod-public.komododecks.com/202605/15/BBmtvaRJgaiPJkb68zIS/image.jpg";
+
+/* =========================
+   CUSTOM CIRCLE LOGO
+========================= */
+const DEMO_LOGO =
+"https://plain-apac-prod-public.komododecks.com/202605/15/n37lRAW4k538Hu2b6abv/image.png";
 
 
-        
+document.addEventListener("DOMContentLoaded", () => {
 
-        jwplayer.key = 'YOUR_JW_PLAYER_KEY'; // IMPORTANT: Replace with your actual key
+/* =========================
+   CHROME CHECK
+========================= */
+const isChrome =
+/Chrome/.test(navigator.userAgent) &&
+/Google Inc/.test(navigator.vendor);
 
-        (function() {
+if(!isChrome){
 
-            const origOpen = XMLHttpRequest.prototype.open;
+    document.body.innerHTML = `
+    <div style="
+        background:#000;
+        color:#fff;
+        width:100%;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-family:Arial;
+        text-align:center;
+        padding:20px;
+        box-sizing:border-box;
+    ">
+        Please Open In Chrome Browser
+    </div>`;
 
-            XMLHttpRequest.prototype.open = function(method, url) {
+    return;
+}
 
-                if (url && !url.includes("__hdnea__")) {
 
-                    url += (url.includes('?') ? '&' : '?') + "__hdnea__=st=1778505032~exp=1778526632~acl=/bpk-tv/Star_Sports_HD1_BTS/WDVLive/*~hmac=e86a17d2e3babb2e67f1390ed6fa46183ab55b39c57254df25aba83fb855e570";
+/* =========================
+   AUTO TOKEN APPEND
+========================= */
+(function () {
 
-                }
+    const TOKEN =
+    "__hdnea__=st=1778935189~exp=1778956789~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=b03a774a1e13127026b4c45efb2bc891c1707f219e0e77a37ad28ba3b2b79256";
 
-                return origOpen.apply(this, arguments);
+    const origOpen =
+    XMLHttpRequest.prototype.open;
 
-            };
+    XMLHttpRequest.prototype.open =
+    function(method, url) {
 
-        })();
+        try{
 
-        jwplayer("player").setup({
+            if(
+                typeof url === "string" &&
+                url.includes("bpk-tv") &&
+                !url.includes("__hdnea__")
+            ){
 
-            playlist: [{
+                url +=
+                (url.includes("?") ? "&" : "?") +
+                TOKEN;
 
-                file: "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_BTS/WDVLive/index.mpd?hdnea=st=1778505032~exp=1778526632~acl=/bpk-tv/Star_Sports_HD1_BTS/WDVLive/*~hmac=e86a17d2e3babb2e67f1390ed6fa46183ab55b39c57254df25aba83fb855e570",
+                arguments[1] = url;
+            }
 
-                drm: {
+        }catch(e){}
 
-                    clearkey: {
+        return origOpen.apply(this, arguments);
 
-                        keyId: "965dc2ddb1d85138ad787999a7f30ca5",
+    };
 
-                        key: "859695076e67fe961836b564db6d689c"
+})();
 
-                    }
 
-                }
+/* =========================
+   PLAYER SETUP
+========================= */
+const player = jwplayer("player").setup({
 
-            }],
+    playlist:[{
+
+        file:
+        "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1778935189~exp=1778956789~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=b03a774a1e13127026b4c45efb2bc891c1707f219e0e77a37ad28ba3b2b79256",
+
+        image: DEMO_THUMB,
+
+        drm:{
+            clearkey:{
+                keyId:
+                "400131994b445d8c8817202248760fda",
+
+                key:
+                "2d56cb6f07a75b9aff165d534ae2bfc4"
+            }
+        }
+
+    }],
 
     width: "100%",
     height: "100%",
+
     aspectratio: "16:9",
+
     stretching: "uniform",
-    autostart: true,
+
+    autostart: false,
+
     controls: true,
-    fullscreen: true
-}).on("error", e => {
-    document.body.innerHTML = `<div style="color:white;display:flex;justify-content:center;align-items:center;height:100vh;">Stream Error (${e.code})</div>`;
+
+    fullscreen: true,
+
+    preload: "metadata",
+
+    playbackRateControls: true
+
 });
 
+
+/* =========================
+   PLAYER READY
+========================= */
+player.on('ready', function () {
+
+    let stretchModes = [
+        "uniform",
+        "fill",
+        "exactfit",
+        "none"
+    ];
+
+    let current = 0;
+
+
+    /* =========================
+       CUSTOM STRETCH BUTTON
+    ========================= */
+    player.addButton(
+
+        "https://plain-apac-prod-public.komododecks.com/202605/15/JrbwHym1y6mzCaC2awsH/image.jpg",
+
+        "Stretch Mode",
+
+        function () {
+
+            current++;
+
+            if(current >= stretchModes.length){
+                current = 0;
+            }
+
+            const mode =
+            stretchModes[current];
+
+            player.setConfig({
+                stretching: mode
+            });
+
+        },
+
+        "stretch-button"
+
+    );
+
+
+    /* =========================
+       CUSTOM LOGO
+    ========================= */
+    const logo =
+    document.createElement("img");
+
+    logo.src = DEMO_LOGO;
+
+    logo.id = "custom-logo";
+
+    logo.style.position = "absolute";
+
+    logo.style.top = "15px";
+
+    logo.style.left = "15px";
+
+    logo.style.width = "80px";
+
+    logo.style.height = "80px";
+
+    logo.style.objectFit = "contain";
+
+    logo.style.borderRadius = "50%";
+
+    logo.style.zIndex = "999999";
+
+    logo.style.pointerEvents = "none";
+
+    logo.style.transition = "0.3s ease";
+
+    player.getContainer().appendChild(logo);
+
+});
+
+
+/* =========================
+   PAUSE EVENT
+========================= */
+player.on("pause", function(){
+
+    const container =
+    player.getContainer();
+
+    container.classList.add(
+        "jw-user-active"
+    );
+
+
+    /* =========================
+       SHOW THUMB
+    ========================= */
+    let overlay =
+    document.getElementById(
+        "pause-thumb"
+    );
+
+    if(!overlay){
+
+        overlay =
+        document.createElement("div");
+
+        overlay.id =
+        "pause-thumb";
+
+        overlay.style.position =
+        "absolute";
+
+        overlay.style.top =
+        "0";
+
+        overlay.style.left =
+        "0";
+
+        overlay.style.width =
+        "100%";
+
+        overlay.style.height =
+        "100%";
+
+        overlay.style.backgroundImage =
+        `url(${DEMO_THUMB})`;
+
+        overlay.style.backgroundPosition =
+        "center";
+
+        overlay.style.backgroundRepeat =
+        "no-repeat";
+
+        overlay.style.backgroundSize =
+        "contain";
+
+        overlay.style.backgroundColor =
+        "#000";
+
+        overlay.style.zIndex =
+        "1";
+
+        overlay.style.pointerEvents =
+        "none";
+
+        container.appendChild(overlay);
+
+    }
+
+    overlay.style.display =
+    "block";
+
+
+    /* =========================
+       FORCE CONTROLS
+    ========================= */
+    const controls =
+    container.querySelector(
+        ".jw-controls"
+    );
+
+    if(controls){
+
+        controls.style.display =
+        "flex";
+
+        controls.style.opacity =
+        "1";
+
+        controls.style.visibility =
+        "visible";
+
+        controls.style.zIndex =
+        "99999";
+
+    }
+
+
+    /* =========================
+       FIX PLAY/PAUSE BUTTON
+    ========================= */
+    const playButton =
+    container.querySelector(
+        '.jw-icon-playback'
+    );
+
+    if(playButton){
+
+        playButton.style.display =
+        "flex";
+
+        playButton.style.opacity =
+        "1";
+
+        playButton.style.visibility =
+        "visible";
+
+    }
+
+
+    /* CENTER BUTTON */
+    const displayIcon =
+    container.querySelector(
+        ".jw-display"
+    );
+
+    if(displayIcon){
+
+        displayIcon.style.opacity =
+        "1";
+
+        displayIcon.style.visibility =
+        "visible";
+
+        displayIcon.style.zIndex =
+        "99999";
+
+    }
+
+});
+
+
+/* =========================
+   PLAY EVENT
+========================= */
+player.on("play", function(){
+
+    const overlay =
+    document.getElementById(
+        "pause-thumb"
+    );
+
+    if(overlay){
+
+        overlay.style.display =
+        "none";
+
+    }
+
+
+    const container =
+    player.getContainer();
+
+    container.classList.remove(
+        "jw-user-active"
+    );
+
+
+    /* HIDE CENTER BUTTON */
+    const displayIcon =
+    container.querySelector(
+        ".jw-display"
+    );
+
+    if(displayIcon){
+
+        displayIcon.style.opacity =
+        "0";
+
+        displayIcon.style.visibility =
+        "hidden";
+
+    }
+
+});
+
+
+/* =========================
+   ERROR HANDLER
+========================= */
+player.on("error", e => {
+
+    document.body.innerHTML = `
+    <div style="
+        color:white;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:#000;
+        font-family:Arial;
+        font-size:20px;
+    ">
+        Stream Error (${e.code})
+    </div>`;
+
+});
+
+});
 </script>
 
 </body>
