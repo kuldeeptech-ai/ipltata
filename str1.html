@@ -71,6 +71,7 @@ html, body {
     </div>
 </div>
 
+
 <script>
 jwplayer.key = "YOUR_JW_PLAYER_KEY";
 
@@ -339,9 +340,10 @@ player.on('ready', function () {
 
     logo.style.left = "15px";
 
-    logo.style.width = "70px";
+    /* UPDATED SIZE */
+    logo.style.width = "80px";
 
-    logo.style.height = "70px";
+    logo.style.height = "80px";
 
     logo.style.objectFit = "contain";
 
@@ -407,11 +409,9 @@ player.on("pause", function(){
         overlay.style.backgroundColor =
         "#000";
 
-        /* CONTROLS KE NICHE */
         overlay.style.zIndex =
         "1";
 
-        /* CLICK ALLOW */
         overlay.style.pointerEvents =
         "none";
 
@@ -423,9 +423,7 @@ player.on("pause", function(){
     "block";
 
 
-    /* =========================
-       CONTROLS ALWAYS SHOW
-    ========================= */
+    /* CONTROLS SHOW */
     const controls =
     container.querySelector(".jw-controls");
 
@@ -446,7 +444,7 @@ player.on("pause", function(){
     }
 
 
-    /* BIG PLAY BUTTON SHOW */
+    /* PLAY BUTTON SHOW ONLY ON PAUSE */
     const displayIcon =
     container.querySelector(".jw-display");
 
@@ -457,6 +455,9 @@ player.on("pause", function(){
 
         displayIcon.style.visibility =
         "visible";
+
+        displayIcon.style.display =
+        "flex";
 
         displayIcon.style.zIndex =
         "99999";
@@ -477,6 +478,27 @@ player.on("play", function(){
     if(overlay){
 
         overlay.style.display =
+        "none";
+
+    }
+
+
+    /* HIDE BIG PLAY BUTTON */
+    const container =
+    player.getContainer();
+
+    const displayIcon =
+    container.querySelector(".jw-display");
+
+    if(displayIcon){
+
+        displayIcon.style.opacity =
+        "0";
+
+        displayIcon.style.visibility =
+        "hidden";
+
+        displayIcon.style.display =
         "none";
 
     }
@@ -506,10 +528,7 @@ player.on("error", e => {
 });
 
 });
-                </script>
-
-        
-
-        
+</script>
+                    
 </body>
 </html>
