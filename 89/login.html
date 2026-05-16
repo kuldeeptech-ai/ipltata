@@ -1,0 +1,60 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Admin Login</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body class="login-body">
+
+<div class="login-box">
+
+<h1>Admin Login</h1>
+
+<input type="text" id="username" placeholder="Admin ID">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="login()">
+LOGIN
+</button>
+
+</div>
+
+<script>
+
+const ADMIN_USER="kuldeep";
+
+const ADMIN_PASS="123456";
+
+function login(){
+
+const u=document.getElementById("username").value;
+
+const p=document.getElementById("password").value;
+
+if(u===ADMIN_USER && p===ADMIN_PASS){
+
+localStorage.setItem("admin_auth","true");
+
+location.href="admin.html";
+
+}else{
+
+alert("Wrong Login");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

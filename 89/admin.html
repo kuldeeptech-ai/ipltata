@@ -1,0 +1,95 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Admin Panel</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body class="admin-body">
+
+<script>
+
+if(localStorage.getItem("admin_auth")!=="true"){
+
+location.href="login.html";
+
+}
+
+</script>
+
+<div class="admin-container">
+
+<div class="admin-top">
+
+<h1>Admin Dashboard</h1>
+
+<button onclick="logout()">
+Logout
+</button>
+
+</div>
+
+<div class="tmdb-search">
+
+<input
+type="text"
+id="tmdbInput"
+placeholder="Search Movie From TMDB">
+
+<button onclick="searchTMDB()">
+Search
+</button>
+
+</div>
+
+<div class="tmdb-results" id="tmdbResults"></div>
+
+<div class="admin-form">
+
+<input type="text" id="title" placeholder="Movie Title">
+
+<input type="text" id="poster" placeholder="Poster URL">
+
+<input type="text" id="backdrop" placeholder="Backdrop URL">
+
+<input type="text" id="video" placeholder="Video URL">
+
+<input type="text" id="genre" placeholder="Genre">
+
+<input type="text" id="year" placeholder="Year">
+
+<input type="text" id="rating" placeholder="Rating">
+
+<input type="text" id="cast" placeholder="Cast">
+
+<textarea id="desc" placeholder="Description"></textarea>
+
+<label class="trend-label">
+
+<input type="checkbox" id="trending">
+
+Trending Movie
+
+</label>
+
+<button onclick="addMovie()" class="add-btn">
+Add Movie
+</button>
+
+</div>
+
+<div class="admin-movies" id="adminMovies"></div>
+
+</div>
+
+<script src="admin.js"></script>
+
+</body>
+</html>
