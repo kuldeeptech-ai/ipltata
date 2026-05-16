@@ -359,14 +359,16 @@ player.on('ready', function () {
 
 });
 
-
 /* =========================
-   SHOW THUMB ON PAUSE
+   PAUSE EVENT
 ========================= */
 player.on("pause", function(){
 
     const container =
     player.getContainer();
+
+    /* FORCE JW CONTROLS */
+    player.setControls(true);
 
     let overlay =
     document.getElementById("pause-thumb");
@@ -409,6 +411,7 @@ player.on("pause", function(){
         overlay.style.backgroundColor =
         "#000";
 
+        /* CONTROLS KE NICHE */
         overlay.style.zIndex =
         "1";
 
@@ -423,11 +426,14 @@ player.on("pause", function(){
     "block";
 
 
-    /* CONTROLS SHOW */
+    /* FORCE CONTROLS */
     const controls =
     container.querySelector(".jw-controls");
 
     if(controls){
+
+        controls.style.display =
+        "flex";
 
         controls.style.opacity =
         "1";
@@ -435,151 +441,20 @@ player.on("pause", function(){
         controls.style.visibility =
         "visible";
 
-        controls.style.display =
-        "flex";
-
         controls.style.zIndex =
         "99999";
 
     }
 
 
-    /* PLAY BUTTON SHOW ONLY ON PAUSE */
+    /* FORCE PLAY BUTTON */
     const displayIcon =
     container.querySelector(".jw-display");
 
     if(displayIcon){
-
-        displayIcon.style.opacity =
-        "1";
-
-        displayIcon.style.visibility =
-        "visible";
 
         displayIcon.style.display =
         "flex";
-
-        displayIcon.style.zIndex =
-        "99999";
-
-    }
-
-});
-
-/* =========================
-   FORCE CONTROLS + PAUSE ICON
-========================= */
-
-player.on("pause", function(){
-
-    const container =
-    player.getContainer();
-
-    let overlay =
-    document.getElementById("pause-thumb");
-
-    if(!overlay){
-
-        overlay =
-        document.createElement("div");
-
-        overlay.id =
-        "pause-thumb";
-
-        overlay.style.position =
-        "absolute";
-
-        overlay.style.top =
-        "0";
-
-        overlay.style.left =
-        "0";
-
-        overlay.style.width =
-        "100%";
-
-        overlay.style.height =
-        "100%";
-
-        overlay.style.backgroundImage =
-        `url(${DEMO_THUMB})`;
-
-        overlay.style.backgroundPosition =
-        "center";
-
-        overlay.style.backgroundRepeat =
-        "no-repeat";
-
-        overlay.style.backgroundSize =
-        "contain";
-
-        overlay.style.backgroundColor =
-        "#000";
-
-        overlay.style.zIndex =
-        "1";
-
-        overlay.style.pointerEvents =
-        "none";
-
-        container.appendChild(overlay);
-
-    }
-
-    overlay.style.display =
-    "block";
-
-
-    /* =========================
-       CONTROLS FORCE SHOW
-    ========================= */
-    const controls =
-    container.querySelector(".jw-controls");
-
-    if(controls){
-
-        controls.style.opacity =
-        "1";
-
-        controls.style.visibility =
-        "visible";
-
-        controls.style.display =
-        "flex";
-
-        controls.style.zIndex =
-        "99999";
-
-    }
-
-
-    /* =========================
-       CONTROL BAR BUTTONS
-    ========================= */
-    const buttonContainer =
-    container.querySelector(".jw-button-container");
-
-    if(buttonContainer){
-
-        buttonContainer.style.opacity =
-        "1";
-
-        buttonContainer.style.visibility =
-        "visible";
-
-        buttonContainer.style.display =
-        "flex";
-
-    }
-
-
-    /* =========================
-       BIG PLAY BUTTON SHOW
-    ========================= */
-    const displayIcon =
-    container.querySelector(".jw-display");
-
-    if(displayIcon){
 
         displayIcon.style.opacity =
         "1";
@@ -611,7 +486,7 @@ player.on("play", function(){
     }
 
 
-    /* HIDE BIG CENTER BUTTON */
+    /* HIDE BIG PLAY BUTTON */
     const container =
     player.getContainer();
 
@@ -629,6 +504,8 @@ player.on("play", function(){
     }
 
 });
+
+
     
 /* =========================
    ERROR HANDLER
