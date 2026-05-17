@@ -94,12 +94,12 @@
 
     <!-- JioTV Widget -->
     <div class="jiotv-container">
-<iframe 
-        src="https://widget.jionews.com/jiotv-cricket/prod/v1/index.html?theme=dark&ismobile=true" 
-        allowfullscreen 
-        webkitallowfullscreen 
-        mozallowfullscreen 
-        allow="autoplay">
+<iframe
+id="jioFrame"
+allowfullscreen
+webkitallowfullscreen
+mozallowfullscreen
+allow="autoplay">
 </iframe>
     </div>
   </div>
@@ -122,6 +122,15 @@
     window.addEventListener('orientationchange', handleOrientationChange);
     document.addEventListener('DOMContentLoaded', handleOrientationChange);
   </script>
+<script>
 
+const encoded =
+"aHR0cHM6Ly93aWRnZXQuamlvbmV3cy5jb20vamlvdHYtY3JpY2tldC9wcm9kL3YxL2luZGV4Lmh0bWw/dGhlbWU9ZGFyayZpc21vYmlsZT10cnVl";
+
+document
+.getElementById("jioFrame")
+.src = atob(encoded);
+
+</script>
 </body>
 </html>
