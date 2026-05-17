@@ -72,7 +72,7 @@ html, body {
 </div>
 
 <script>
-jwplayer.key = "YOUR_JWPLAYER_KEY";
+jwplayer.key = 'YOUR_JW_PLAYER_KEY';
 
 /* CUSTOM THUMBNAIL */
 const DEMO_THUMB =
@@ -102,7 +102,7 @@ const DEMO_LOGO =
             url +=
             (url.includes('?') ? '&' : '?') +
 
-            "__hdnea__=st=1778935189~exp=1778956789~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=b03a774a1e13127026b4c45efb2bc891c1707f219e0e77a37ad28ba3b2b79256";
+            "__hdnea__=st=1779003002~exp=1779024602~acl=/bpk-tv/StarSportsHD2Hin_BTS/WDVLive/*~hmac=4ef6fbfde05be1ce98bac0293f4781605fe0ea7931d02b4112335cd967ef4c43";
 
         }
 
@@ -116,24 +116,30 @@ const DEMO_LOGO =
 })();
 
 
+/* =========================
+   PLAYER SETUP
+========================= */
 const player = jwplayer("player").setup({
 
-    playlist:[{
+    playlist: [{
 
         file:
-        "https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/index.mpd?__hdnea__=st=1778935189~exp=1778956789~acl=/bpk-tv/Star_Sports_HD1_Hindi_BTS/WDVLive/*~hmac=b03a774a1e13127026b4c45efb2bc891c1707f219e0e77a37ad28ba3b2b79256",
+        "https://jiotvpllive.cdn.jio.com/bpk-tv/StarSportsHD2Hin_BTS/WDVLive/index.mpd?__hdnea__=st=1779003002~exp=1779024602~acl=/bpk-tv/StarSportsHD2Hin_BTS/WDVLive/*~hmac=4ef6fbfde05be1ce98bac0293f4781605fe0ea7931d02b4112335cd967ef4c43",
 
-        // CUSTOM THUMBNAIL
         image: DEMO_THUMB,
 
-        drm:{
-            clearkey:{
+        drm: {
+
+            clearkey: {
+
                 keyId:
-                "400131994b445d8c8817202248760fda",
+                "bd1ea6a1c1fb5dcdb709434e0826bbc0",
 
                 key:
-                "2d56cb6f07a75b9aff165d534ae2bfc4"
+                "f57f22cba32739ce7beb1fab3f3d060b"
+
             }
+
         }
 
     }],
@@ -145,7 +151,6 @@ const player = jwplayer("player").setup({
 
     stretching: "uniform",
 
-    // MANUAL PLAY
     autostart: false,
 
     controls: true,
@@ -156,7 +161,6 @@ const player = jwplayer("player").setup({
 
 
 /* PLAYER READY */
-
 player.on('ready', function () {
 
     let stretchModes = [
@@ -168,8 +172,8 @@ player.on('ready', function () {
 
     let current = 0;
 
-    /* CUSTOM STRETCH BUTTON */
 
+    /* CUSTOM STRETCH BUTTON */
     player.addButton(
 
         "https://plain-apac-prod-public.komododecks.com/202605/15/JrbwHym1y6mzCaC2awsH/image.jpg",
@@ -184,17 +188,15 @@ player.on('ready', function () {
                 current = 0;
             }
 
-            const mode = stretchModes[current];
-
-            /* VIDEO STRETCH */
+            const mode =
+            stretchModes[current];
 
             player.setConfig({
                 stretching: mode
             });
 
 
-            /* START THUMB STRETCH */
-
+            /* START THUMB */
             const preview =
             document.querySelector(".jw-preview");
 
@@ -220,8 +222,7 @@ player.on('ready', function () {
             }
 
 
-            /* PAUSE THUMB STRETCH */
-
+            /* PAUSE THUMB */
             const pauseThumb =
             document.getElementById("pause-thumb");
 
@@ -247,8 +248,7 @@ player.on('ready', function () {
             }
 
 
-            /* LOGO STRETCH */
-
+            /* LOGO */
             const logo =
             document.getElementById("custom-logo");
 
@@ -280,12 +280,10 @@ player.on('ready', function () {
     );
 
 
-    /* CUSTOM TOP LEFT LOGO */
-
+    /* CUSTOM LOGO */
     const logo =
     document.createElement("img");
 
-    // CUSTOM PNG LOGO
     logo.src = DEMO_LOGO;
 
     logo.id = "custom-logo";
@@ -316,11 +314,14 @@ player.on('ready', function () {
 
 
 /* SHOW THUMBNAIL AGAIN ON PAUSE */
-
 player.on("pause", function(){
 
     const container =
     player.getContainer();
+
+    container.classList.add(
+        "jw-user-active"
+    );
 
     let overlay =
     document.getElementById("pause-thumb");
@@ -357,14 +358,12 @@ player.on("pause", function(){
         overlay.style.backgroundRepeat =
         "no-repeat";
 
-        // SAME AS START
         overlay.style.backgroundSize =
         "contain";
 
         overlay.style.backgroundColor =
         "#000";
 
-        // CONTROLS KE NICHE
         overlay.style.zIndex =
         "1";
 
@@ -380,7 +379,6 @@ player.on("pause", function(){
 
 
     /* SHOW CONTROLS */
-
     const controls =
     container.querySelector(".jw-controls");
 
@@ -404,7 +402,6 @@ player.on("pause", function(){
 
 
 /* HIDE THUMB WHEN PLAY */
-
 player.on("play", function(){
 
     const overlay =
@@ -421,7 +418,6 @@ player.on("play", function(){
 
 
 /* ERROR */
-
 player.on("error", e => {
 
     document.body.innerHTML = `
