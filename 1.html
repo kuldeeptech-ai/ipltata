@@ -77,6 +77,49 @@
         height: auto !important;
       }
     }
+    .jio-wrap{
+    position:relative;
+    width:100%;
+    height:500px;
+    overflow:hidden;
+    border-radius:16px;
+}
+
+#jioFrame{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+/* LEFT BOTTOM LOGO */
+
+.hide-bottom-left{
+    position:absolute;
+    bottom:0;
+    left:0;
+
+    width:320px;
+    height:55px;
+
+    background:#000;
+
+    z-index:9999;
+}
+
+/* RIGHT BOTTOM LOGO */
+
+.hide-bottom-right{
+    position:absolute;
+    bottom:0;
+    right:0;
+
+    width:180px;
+    height:55px;
+
+    background:#000;
+
+    z-index:9999;
+}
   </style>
 </head>
 <body>
@@ -93,15 +136,23 @@
     </div>
 
     <!-- JioTV Widget -->
-    <div class="jiotv-container">
-<iframe
-id="jioFrame"
-allowfullscreen
-webkitallowfullscreen
-mozallowfullscreen
-allow="autoplay">
-</iframe>
-    </div>
+<div class="jio-wrap">
+
+    <iframe
+    id="jioFrame"
+    allowfullscreen
+    webkitallowfullscreen
+    mozallowfullscreen
+    allow="autoplay">
+    </iframe>
+
+    <!-- BOTTOM LEFT HIDE -->
+    <div class="hide-bottom-left"></div>
+
+    <!-- BOTTOM RIGHT HIDE -->
+    <div class="hide-bottom-right"></div>
+
+</div>
   </div>
 
   <script>
